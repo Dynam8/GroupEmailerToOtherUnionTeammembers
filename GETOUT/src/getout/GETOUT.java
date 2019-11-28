@@ -15,7 +15,7 @@ public class GETOUT {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // fred smells
+        System.out.println("fred smells");
     }
     
 }
