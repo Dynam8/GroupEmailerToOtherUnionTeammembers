@@ -9,23 +9,27 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-public class SendEmail {
-
-    private static String USER_NAME = "emailerTreeMailer";  // GMail user name (just the part before "@gmail.com")
-    private static String PASSWORD = "Wemail2Email"; // GMail password
-    private static String RECIPIENT = "fchen3@ocdsb.ca";
-
-    public static void main(String[] args) {
-        String from = USER_NAME;
-        String pass = PASSWORD;
-        String[] to = { RECIPIENT }; // list of recipient email addresses
-        String subject = "Java send mail example";
-        String body = "Welcome to JavaMail!";
-
-        sendFromGMail(from, pass, to, subject, body);
+public class SendEmail{
+    
+    private String username;
+    private String password;
+    private String subject;
+    private String body;
+    private String[] recipients;
+    
+    public SendEmail(String username, String password, String[] recipients, String subject, String body){
+        this.username = username;
+        this.password = password;
+        this.subject = subject;
+        this.body = body;             
+        this.recipients = recipients;
+        sendFromGMail(username, password, recipients, subject, body, 6);
     }
 
-    private static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
+    
+
+
+    private  void sendFromGMail(String from, String pass, String[] to, String subject, String body, int repeat) {
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -47,22 +51,21 @@ public class SendEmail {
                 toAddress[i] = new InternetAddress(to[i]);
             }
 
-            for( int i = 0; i < toAddress.length; i++) {
-                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+            for (InternetAddress toAddres : toAddress) {
+                message.addRecipient(Message.RecipientType.TO, toAddres);
             }
 
             message.setSubject(subject);
             message.setText(body);
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, from, pass);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
+            
+            try (Transport transport = session.getTransport("smtp")) {
+                transport.connect(host, from, pass);
+                transport.sendMessage(message, message.getAllRecipients());
+            }
         }
         catch (AddressException ae) {
-            ae.printStackTrace();
         }
         catch (MessagingException me) {
-            me.printStackTrace();
         }
     }
 }
