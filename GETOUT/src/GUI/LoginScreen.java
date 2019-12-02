@@ -128,7 +128,12 @@ public class LoginScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_exitButtonActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MenuScreen().setVisible(true);
+            }
+        });
+        this.dispose();
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
