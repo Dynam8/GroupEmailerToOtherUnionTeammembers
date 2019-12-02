@@ -9,13 +9,12 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-public class SendEmail{
-    
-    private String username;
-    private String password;
-    private String subject;
-    private String body;
-    private String[] recipients;
+public class SendEmail{   
+    public String username;
+    public String password;
+    public String subject;
+    public String body;
+    public String[] recipients;
     
     public SendEmail(String username, String password, String[] recipients, String subject, String body){
         this.username = username;
@@ -23,25 +22,9 @@ public class SendEmail{
         this.subject = subject;
         this.body = body;             
         this.recipients = recipients;
-        sendFromGMail(username, password, recipients, subject, body, 6);
     }
-
     
-
-
-    private  void sendFromGMail(String from, String pass, String[] to, String subject, String body, int repeat) {
-        Properties props = System.getProperties();
-        String host = "smtp.gmail.com";
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.user", from);
-        props.put("mail.smtp.password", pass);
-        props.put("mail.smtp.port", "587");
-        props.put("mail.smtp.auth", "true");
-
-        Session session = Session.getDefaultInstance(props);
-        MimeMessage message = new MimeMessage(session);
-
+    private void SendMessage(MimeMessage message, String from, String pass, String[] to, String subject, String body, int repeat){
         try {
             message.setFrom(new InternetAddress(from));
             InternetAddress[] toAddress = new InternetAddress[to.length];
@@ -68,4 +51,8 @@ public class SendEmail{
         catch (MessagingException me) {
         }
     }
-}
+
+} 
+  
+
+
