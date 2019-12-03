@@ -13,18 +13,22 @@ import javax.mail.internet.MimeMessage;
  *
  * @author S332896109
  */
-public class Message{
-    
-    public MimeMessage messageInfo;
+public class Login {
+
+    public MimeMessage message;
     public String host = "smtp.gmail.com";
     public Properties props = System.getProperties();
-    
-    public Message(){
-        
-        this.messageInfo = returnMessage(username, password, recipients, subject, body, 6);
+    public String username;
+    public String password;
+    public Session session;
+
+    public Login(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.message = returnMessage(username, password);
     }
 
-    public  MimeMessage returnMessage(String from, String pass, String[] to, String subject, String body, int repeat) {
+    private MimeMessage returnMessage(String from, String pass) {
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.user", from);
@@ -32,7 +36,8 @@ public class Message{
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.auth", "true");
 
-        Session session = Session.getDefaultInstance(props);
-        return new MimeMessage(session);}
-  
-} 
+        this.session = Session.getDefaultInstance(props);
+        return new MimeMessage(session);
+    }
+
+}

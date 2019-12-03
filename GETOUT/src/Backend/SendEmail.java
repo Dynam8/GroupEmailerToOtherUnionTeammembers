@@ -8,25 +8,28 @@ package Backend;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.util.Properties;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
+import javax.mail.Message;
 
 public class SendEmail{   
-    public String username;
-    public String password;
+ 
     public String subject;
     public String body;
     public String[] recipients;
     
-    public SendEmail(String username, String password, String[] recipients, String subject, String body){
-        this.username = username;
-        this.password = password;
+    public SendEmail(Login user, String[] recipients, String subject, String body){
+  
         this.subject = subject;
         this.body = body;             
         this.recipients = recipients;
+        SendMessage( user, recipients, subject, body);
     }
     
-    private void SendMessage(MimeMessage message, String from, String pass, String[] to, String subject, String body, int repeat){
+    private void SendMessage(Login user, String[] to, String subject, String body){
         try {
-            message.setFrom(new InternetAddress(from));
+            user.message.setFrom(new InternetAddress(user.username));
             InternetAddress[] toAddress = new InternetAddress[to.length];
 
             // To get the array of addresses
@@ -35,15 +38,15 @@ public class SendEmail{
             }
 
             for (InternetAddress toAddres : toAddress) {
-                message.addRecipient(Message.RecipientType.TO, toAddres);
+                user.message.addRecipient(Message.RecipientType.TO, toAddres);
             }
 
-            message.setSubject(subject);
-            message.setText(body);
+            user.message.setSubject(subject);
+            user.message.setText(body);
             
-            try (Transport transport = session.getTransport("smtp")) {
-                transport.connect(host, from, pass);
-                transport.sendMessage(message, message.getAllRecipients());
+            try (Transport transport = user.session.getTransport("smtp")) {
+                transport.connect(user.host, user.username, user.password);
+                transport.sendMessage(user.message, user.message.getAllRecipients());
             }
         }
         catch (AddressException ae) {

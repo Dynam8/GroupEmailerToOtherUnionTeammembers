@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package getout;
-import Backend.Message;
+import Backend.Login;
 import Backend.SendEmail;
 import java.util.Scanner;
 /**
@@ -12,22 +12,33 @@ import java.util.Scanner;
  * @author S331471193
  */
 public class GETOUT {
-   
+  
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] recipients = {"stran1@ocdsb.ca", "asitu2@ocdsb.ca"};
-        Message message = new Message("USERNAME", "PASS",recipients, "Tesbobt", "Tebobst");
-        while (true){
-            System.out.println("keep me logged in");
-            String bob = sc.next();
-            SendEmail em = new SendEmail(message, "USERNAME", "PASS",recipients, "Tesbobt", "Tebobst");
+        String[] recipients = {"emailerTreeMailer@gmail.com"};
+        String username = "emailerTreeMailer@gmail.com";
+        String password = "Wemail1Email";
+        Login user = new Login(username, password);
+        for(int i = 0; i<200; i++){
+            
+            SendEmail em = new SendEmail(user,recipients, "Test for today"+Integer.toString(i+1622), "this worked?");
+            System.out.println("email #"+Integer.toString(i)+" successful");
            
         }
-        
+        name:
+        while (true){
+            //do
+            while(true){
+                //do
+                if (condition){
+                    break name;
+                }
+            }
+        }
         
         
         //System.out.println("fred smells");
