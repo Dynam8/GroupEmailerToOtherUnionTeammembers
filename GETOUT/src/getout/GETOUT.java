@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 package getout;
+
 import Backend.Login;
 import Backend.SendEmail;
 import java.util.Scanner;
+
 /**
  *
  * @author S331471193
  */
 public class GETOUT {
-  
 
     /**
      * @param args the command line arguments
@@ -23,25 +24,13 @@ public class GETOUT {
         String username = "emailerTreeMailer@gmail.com";
         String password = "Wemail1Email";
         Login user = new Login(username, password);
-        for(int i = 0; i<200; i++){
-            
-            SendEmail em = new SendEmail(user,recipients, "Test for today"+Integer.toString(i+1622), "this worked?");
-            System.out.println("email #"+Integer.toString(i)+" successful");
-           
+        for (int i = 0; i < 200; i++) {
+
+            SendEmail em = new SendEmail(user, recipients, "Test for today" + Integer.toString(i + 1622), "this worked?");
+            System.out.println("email #" + Integer.toString(i) + " successful");
+
         }
-        name:
-        while (true){
-            //do
-            while(true){
-                //do
-                if (condition){
-                    break name;
-                }
-            }
-        }
-        
-        
-        //System.out.println("fred smells");
+
     }
-    
+
 }
