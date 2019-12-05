@@ -21,14 +21,17 @@ public class GETOUT {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String[] recipients = {"emailerTreeMailer@gmail.com"};
+        //String username = "dfgdfgd";
         String username = "emailerTreeMailer@gmail.com";
         String password = "Wemail1Email";
         Login user = new Login(username, password);
-        for (int i = 0; i < 200; i++) {
+        if (user.isValidEmail) {
+            for (int i = 0; i < 1; i++) {//testing
 
-            SendEmail em = new SendEmail(user, recipients, "Test for today" + Integer.toString(i + 1622), "this worked?");
-            System.out.println("email #" + Integer.toString(i) + " successful");
+                SendEmail em = new SendEmail(user, recipients, "Test for today" + Integer.toString(i + 1622), "this worked?");
+                System.out.println("email #" + Integer.toString(i) + " successful");
 
+            }
         }
 
     }
