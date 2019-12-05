@@ -8,6 +8,8 @@ package Backend;
 import java.util.Properties;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.AddressException;
 
 /**
  *
@@ -21,11 +23,28 @@ public class Login {
     public String username;
     public String password;
     public Session session;
+    public boolean isValidEmail = false;
 
     public Login(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.message = returnMessage(username, password);
+        if (isValidEmailAddress(username)) {
+            this.isValidEmail = true;
+            this.username = username;
+            this.password = password;
+            this.message = returnMessage(username, password);
+        } else {            
+            System.out.println("Not a valid email address!");
+        }
+    }
+
+    private boolean isValidEmailAddress(String email) {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email);
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
     }
 
     private MimeMessage returnMessage(String from, String pass) {
