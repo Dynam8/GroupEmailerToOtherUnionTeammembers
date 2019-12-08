@@ -13,21 +13,10 @@ import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
 import javax.mail.Message;
 
-public class SendEmail{   
+public class SendEmail{  
  
-    public String subject;
-    public String body;
-    public String[] recipients;
     
-    public SendEmail(Login user, String[] recipients, String subject, String body){
-  
-        this.subject = subject;
-        this.body = body;             
-        this.recipients = recipients;
-        SendMessage( user, recipients, subject, body);
-    }
-    
-    private void SendMessage(Login user, String[] to, String subject, String body){
+    public static void SendMessage(Login user, String[] to, String subject, String body){
         try {
             user.message.setFrom(new InternetAddress(user.username));
             InternetAddress[] toAddress = new InternetAddress[to.length];

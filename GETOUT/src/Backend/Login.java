@@ -17,6 +17,8 @@ import javax.mail.internet.AddressException;
  */
 public class Login {
 
+    
+    private static Login instance = null;
     public MimeMessage message;
     public String host = "smtp.gmail.com";
     public Properties props = System.getProperties();
@@ -24,14 +26,22 @@ public class Login {
     public String password;
     public Session session;
     public boolean isValidEmail = false;
+    
+    public static Login getInstance() 
+    { 
+        if (instance == null) 
+            instance = new Login(); 
+  
+        return instance; 
+    }
 
-    public Login(String username, String password) {
+    public void init(String username, String password) {
         if (isValidEmailAddress(username)) {
             this.isValidEmail = true;
             this.username = username;
             this.password = password;
             this.message = returnMessage(username, password);
-        } else {            
+        } else {
             System.out.println("Not a valid email address!");
         }
     }
