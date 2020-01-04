@@ -6,7 +6,6 @@
 package GUI;
 
 import Backend.Email;
-import Backend.Login_DEPRECIATED;
 import Backend.ParseJson;
 import Backend.User;
 
