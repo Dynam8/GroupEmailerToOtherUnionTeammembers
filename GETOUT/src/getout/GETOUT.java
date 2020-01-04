@@ -5,10 +5,14 @@
  */
 package getout;
 
-import Backend.Login;
+import Backend.Login_DEPRECIATED;
+import Backend.ParseJson;
 import Backend.SendEmail;
+import Backend.User;
+import GUI.LoginScreen;
+import java.io.IOException;
 import java.util.Scanner;
-
+import java.util.ArrayList;
 /**
  *
  * @author S331471193
@@ -18,22 +22,13 @@ public class GETOUT {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String[] recipients = {"emailerTreeMailer@gmail.com"};
-        //String username = "dfgdfgd";
-        String username = "emailerTreeMailer@gmail.com";
-        String password = "Wemail1Email";
-        Login user = new Login(username, password);
-        if (user.isValidEmail) {
-            for (int i = 0; i < 1; i++) {//testing
-
-                SendEmail em = new SendEmail(user, recipients, "Test for today" + Integer.toString(i + 1622), "this worked?");
-                System.out.println("email #" + Integer.toString(i) + " successful");
-
-            }
-        }
-
+    public static ArrayList<User> users; 
+    
+    public static void main(String[] args) throws IOException {
+        users = ParseJson.readFromFile("UserCred/users.json");
+     java.awt.EventQueue.invokeLater(() -> {
+            new LoginScreen().setVisible(true);
+        });
     }
 
 }
