@@ -52,7 +52,7 @@ public class Email {
      * these scopes, delete your previously saved tokens/ folder.
      */
     private final List<String> SCOPES = Collections.singletonList(GmailScopes.GMAIL_COMPOSE);
-    private final String CREDENTIALS_FILE_PATH = "/credentials.json";
+    private final String CREDENTIALS_FILE_PATH = "credentials.json";
     private Gmail service;
 
     /**
