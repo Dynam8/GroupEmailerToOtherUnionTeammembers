@@ -13,6 +13,7 @@ import GUI.LoginScreen;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+
 /**
  *
  * @author S331471193
@@ -22,11 +23,12 @@ public class GETOUT {
     /**
      * @param args the command line arguments
      */
-    public static ArrayList<User> users; 
-    
+    public static ArrayList<User> users;
+
     public static void main(String[] args) throws IOException {
-        users = ParseJson.readFromFile("UserCred/users.json");
-     java.awt.EventQueue.invokeLater(() -> {
+        users = ParseJson.readFromFile("UserCred/users.json", User.class);
+
+        java.awt.EventQueue.invokeLater(() -> {
             new LoginScreen().setVisible(true);
         });
     }
