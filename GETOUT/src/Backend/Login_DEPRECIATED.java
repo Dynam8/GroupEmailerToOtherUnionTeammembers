@@ -15,10 +15,10 @@ import javax.mail.internet.AddressException;
  *
  * @author S332896109
  */
-public class Login {
+public class Login_DEPRECIATED {
 
     
-    private static Login instance = null;
+    private static Login_DEPRECIATED instance = null;
     public MimeMessage message;
     public String host = "smtp.gmail.com";
     public Properties props = System.getProperties();
@@ -27,10 +27,10 @@ public class Login {
     public Session session;
     public boolean isValidEmail = false;
     
-    public static Login getInstance() 
+    public static Login_DEPRECIATED getInstance() 
     { 
         if (instance == null) 
-            instance = new Login(); 
+            instance = new Login_DEPRECIATED(); 
   
         return instance; 
     }
