@@ -17,6 +17,8 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
@@ -25,12 +27,12 @@ import java.util.logging.Logger;
 public class LoginScreen extends javax.swing.JFrame {
 
     //private final String PATH = "UserCred/users.json";
-
     /**
      * Creates new form MenuScreen
      */
     public static User currentUser;
     public static Email email;
+
     public LoginScreen() {
         initComponents();
     }
@@ -157,9 +159,16 @@ public class LoginScreen extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                new ErrorPanel("Session timed out, please try again").setVisible(true);
+
+            }
+        }, 3 * 1000);
 
         try {
-            
+
             currentUser = GETOUT.users.stream()
                     .filter(user -> username.getText().equals(user.getEmail()))
                     .findAny()
@@ -181,7 +190,7 @@ public class LoginScreen extends javax.swing.JFrame {
                         }
                     });
                     this.dispose();
-                }else{
+                } else {
                     System.out.println("Not the correct password!");
                 }
             }

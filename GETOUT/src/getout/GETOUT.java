@@ -23,7 +23,9 @@ public class GETOUT {
     /**
      * @param args the command line arguments
      */
+    public final static String ADMIN_EMAIL = "1@1.com";
     public static ArrayList<User> users;
+    public final static String USERS_FILE_PATH = "UserCred/users.json";
 
     public static void main(String[] args) throws IOException {
         users = ParseJson.readFromFile("UserCred/users.json", User.class);
