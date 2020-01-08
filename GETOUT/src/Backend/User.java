@@ -13,8 +13,14 @@ public class User {
      private String email;
     private String password;
     private int permission;
-    private boolean alreadyLogin = false;
     private String name;
+    
+    public User(String name, String email, String password,  int permission){
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.permission = permission;
+    }
 
     public String getName() {
         return name;
@@ -32,8 +38,6 @@ public class User {
         return permission;
     }
 
-    public boolean isAlreadyLogin() {
-        return alreadyLogin;
-    }
+
     
 }
