@@ -10,7 +10,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -21,20 +20,22 @@ import java.lang.reflect.Type;
 /**
  *
  * @author Emperor Master Chen
+ * @param <T> 
  */
 
-public class ParseJson {
+public class ParseJson<T> {
 
     final static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    public static ArrayList<User> readFromFile(String location) throws FileNotFoundException, IOException{
+    public static <T> ArrayList<T>  readFromFile(String location, Class<T> classType) throws FileNotFoundException, IOException{
         try(FileReader reader = new FileReader(location)){
-            Type arrayListType = new TypeToken<ArrayList<User>>(){}.getType();
+             Type arrayListType = TypeToken.getParameterized(ArrayList.class, classType).getType();
+            //Type arrayListType = new TypeToken<classType>(){}.getType();
             return GSON.fromJson(reader, arrayListType);
         }
     }
 
-    public static void writeToFile(ArrayList<User> list, String location) {
+    public static void writeToFile(ArrayList<?> list, String location) {
         try (FileWriter writer = new FileWriter(location)) {
             GSON.toJson(list, writer);
         } catch (IOException e) {
