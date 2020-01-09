@@ -17,8 +17,10 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.lang.Runnable;
 
 /**
  *
@@ -159,44 +161,73 @@ public class LoginScreen extends javax.swing.JFrame {
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            public void run() {
-                new ErrorPanel("Session timed out, please try again").setVisible(true);
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                java.awt.EventQueue.invokeLater(() -> {
+                    setVisible(true);
+                    new ErrorPanel("Session timed out, please try again").setVisible(true);
+                });
 
             }
-        }, 3 * 1000);
+        };
+        Timer timer = new Timer(3 * 1000, taskPerformer);
+        timer.setRepeats(false);
+        timer.start();
 
-        try {
-
-            currentUser = GETOUT.users.stream()
-                    .filter(user -> username.getText().equals(user.getEmail()))
-                    .findAny()
-                    .orElse(null);
-            //users.stream().anyMatch(user -> username.equals(user.getEmail())&& password.equals(user.getPassword()))
-            if (currentUser == null) {
-                System.out.println("Not a valid user!");
-            } else {
-                if (password.getText().equals(currentUser.getPassword())) {
-                    try {
-                        email = new Email(currentUser.getEmail());
-                    } catch (GeneralSecurityException ex) {
+        //try {
+        currentUser = GETOUT.users.stream()
+                .filter(user -> username.getText().equals(user.getEmail()))
+                .findAny()
+                .orElse(null);
+        //users.stream().anyMatch(user -> username.equals(user.getEmail())&& password.equals(user.getPassword()))
+        if (currentUser == null) {
+            timer.stop();
+            java.awt.EventQueue.invokeLater(() -> {
+                new ErrorPanel("Not a valid user!").setVisible(true);
+            });
+        } else {
+            if (password.getText().equals(currentUser.getPassword())) {
+                // try {
+                 Runnable logInThread = new Runnable() {
+                            public void run() {
+                                try {
+                                    email = new Email(currentUser.getEmail());
+                                } catch (GeneralSecurityException ex) {
+                                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            }
+                        };
+                        Thread thread = new Thread(logInThread);
+                        thread.start();
+                   /* try {
+                        thread.join();
+                    } catch (InterruptedException ex) {
                         Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                    }*/
+
+             if (!thread.isAlive()){
+                timer.stop();
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new MenuScreen().setVisible(true);
                     }
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            new MenuScreen().setVisible(true);
-                        }
-                    });
-                    this.dispose();
-                } else {
-                    System.out.println("Not the correct password!");
-                }
+                });
+                this.dispose();}
+
+                // } catch (GeneralSecurityException ex) {
+                //      Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                //  }
+            } else {
+                timer.stop();
+                System.out.println("Not the correct password!");
             }
-        } catch (IOException ex) {
-            Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //  } catch (IOException ex) {
+        //     Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+        // }
 
     }//GEN-LAST:event_LoginActionPerformed
 
