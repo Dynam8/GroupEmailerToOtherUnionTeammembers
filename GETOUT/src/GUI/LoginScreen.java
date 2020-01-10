@@ -22,6 +22,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.lang.Runnable;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import java.net.Socket;
+
 /**
  *
  * @author S331471193
@@ -159,9 +169,40 @@ public class LoginScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
+    class Task implements Callable<String> {
+
+        @Override
+        public String call() throws Exception {
+            while (!Thread.interrupted()) {
+                try {
+                    setVisible(false);
+                    email = new Email(currentUser.getEmail());
+                    
+                } catch (GeneralSecurityException ex) {
+                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    // timer.stop();
+
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            new MenuScreen().setVisible(true);
+                        }
+                    });
+                    dispose();
+                    
+                }
+                break;
+            }
+            //Thread.sleep(10000); // Just to demo a long running task of 4 seconds.
+            return "Ready!";
+        }
+    }
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // TODO add your handling code here:
-        ActionListener taskPerformer = new ActionListener() {
+        /* ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 java.awt.EventQueue.invokeLater(() -> {
                     setVisible(true);
@@ -173,7 +214,7 @@ public class LoginScreen extends javax.swing.JFrame {
         Timer timer = new Timer(3 * 1000, taskPerformer);
         timer.setRepeats(false);
         timer.start();
-
+         */
         //try {
         currentUser = GETOUT.users.stream()
                 .filter(user -> username.getText().equals(user.getEmail()))
@@ -181,47 +222,51 @@ public class LoginScreen extends javax.swing.JFrame {
                 .orElse(null);
         //users.stream().anyMatch(user -> username.equals(user.getEmail())&& password.equals(user.getPassword()))
         if (currentUser == null) {
-            timer.stop();
+            // timer.stop();
             java.awt.EventQueue.invokeLater(() -> {
                 new ErrorPanel("Not a valid user!").setVisible(true);
             });
         } else {
             if (password.getText().equals(currentUser.getPassword())) {
                 // try {
-                 Runnable logInThread = new Runnable() {
-                            public void run() {
-                                try {
-                                    email = new Email(currentUser.getEmail());
-                                } catch (GeneralSecurityException ex) {
-                                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (IOException ex) {
-                                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                        };
-                        Thread thread = new Thread(logInThread);
-                        thread.start();
-                   /* try {
+              //  Runnable logInThread = new Runnable() {
+                 //   public void run() {
+                        ExecutorService executor = Executors.newSingleThreadExecutor();
+                        Future<String> future = executor.submit(new Task());
+
+                        try {
+                            System.out.println(future.get(3, TimeUnit.SECONDS));
+
+                        } catch (TimeoutException e) {
+                            future.cancel(true);
+                            setVisible(true);
+                            java.awt.EventQueue.invokeLater(() -> {
+                                setVisible(true);
+                                new ErrorPanel("Session timed out, please try again").setVisible(true);
+                            });
+                            System.out.println("Terminated!");
+
+                        } catch (InterruptedException | ExecutionException ex) {
+                            Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                        executor.shutdownNow();
+
+                    }
+               // };
+              //  Thread thread = new Thread(logInThread);
+              //  thread.start();
+                /* try {
                         thread.join();
                     } catch (InterruptedException ex) {
                         Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
                     }*/
 
-             if (!thread.isAlive()){
-                timer.stop();
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        new MenuScreen().setVisible(true);
-                    }
-                });
-                this.dispose();}
-
                 // } catch (GeneralSecurityException ex) {
                 //      Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
                 //  }
-            } else {
-                timer.stop();
+             else {
+                //timer.stop();
                 System.out.println("Not the correct password!");
             }
         }
