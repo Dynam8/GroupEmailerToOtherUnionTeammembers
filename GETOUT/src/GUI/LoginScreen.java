@@ -250,11 +250,11 @@ public class LoginScreen extends javax.swing.JFrame {
                 TimerTask task = new TimerTask() {
                     @Override
                     public void run() {
-                        java.awt.EventQueue.invokeLater(() -> {
+                        
                             setVisible(true);
                             new ErrorPanel("Session timed out, please try again").setVisible(true);
 
-                        });
+                        
                         loginThread.stop();
                     }
                 };
@@ -263,7 +263,7 @@ public class LoginScreen extends javax.swing.JFrame {
 
                 
 
-                timer.schedule(task, 5000);
+                timer.schedule(task, 50000);
 
                 System.out.println(1);
 

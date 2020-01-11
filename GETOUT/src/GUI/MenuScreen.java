@@ -23,8 +23,10 @@ public class MenuScreen extends javax.swing.JFrame {
     public MenuScreen() {
 
         initComponents();
+        System.out.println(LoginScreen.currentUser.getPermission());
         if (LoginScreen.currentUser.getPermission() < 2) {
             jPanel4.setEnabled(false);
+            System.out.println("bob no permission");
         }
     }
 
@@ -368,7 +370,8 @@ public class MenuScreen extends javax.swing.JFrame {
                 new NewUser().setVisible(true);
             }
         });
-        this.dispose();
+        
+        dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
