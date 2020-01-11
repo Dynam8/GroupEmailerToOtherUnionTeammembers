@@ -368,10 +368,16 @@ public class MenuScreen extends javax.swing.JFrame {
                 new NewUser().setVisible(true);
             }
         });
+        this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new DeleteUser().setVisible(true);
+            }
+        });
+        this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private ArrayList<User> filterUsers(int permissionLevel) {
