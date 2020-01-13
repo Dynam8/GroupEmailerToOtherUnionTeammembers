@@ -23,15 +23,25 @@ public class DeleteUser extends javax.swing.JFrame {
     Object[][] data;
 
     public DeleteUser() {
-        data = new Object[3][GETOUT.users.size() - 2];
-        for (int i = 0; i < GETOUT.users.size() - 2; i++) {
-            if (!GETOUT.users.get(i).getEmail().equals(GETOUT.ADMIN_EMAIL)
-                    || !GETOUT.users.get(i).getEmail().equals(LoginScreen.currentUser.getEmail())) {
-
-                data[i][0] = GETOUT.users.get(i).getName();
-                data[i][1] = GETOUT.users.get(i).getEmail();
-                data[i][2] = false;
+        //System.out.println(GETOUT.users.get(9).getEmail());
+        int accNum = LoginScreen.currentUser.getEmail().equals(GETOUT.ADMIN_EMAIL) ? 1 : 2;
+        int counter = 0;
+        data = new Object[GETOUT.users.size() - accNum][3];
+        for (int i = 0; i < GETOUT.users.size() - accNum; i++) {
+            for (int j = counter; j < GETOUT.users.size(); j++) {
+                counter++;
+                if (!GETOUT.users.get(j).getEmail().equals(GETOUT.ADMIN_EMAIL)
+                        && !GETOUT.users.get(j).getEmail().equals(LoginScreen.currentUser.getEmail())) {
+                    System.out.println(j);
+                    
+                    data[i][0] = GETOUT.users.get(j).getName();
+                    data[i][1] = GETOUT.users.get(j).getEmail();
+                    data[i][2] = false;
+                    break;
+                }
+                
             }
+
         }
         initComponents();
     }
@@ -154,8 +164,8 @@ public class DeleteUser extends javax.swing.JFrame {
             table.setValueAt(true, i, 2);
         }
         checkAll.setSelected(false);    }//GEN-LAST:event_checkAllActionPerformed
-
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        new MenuScreen().setVisible(true);
         dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
@@ -168,6 +178,7 @@ public class DeleteUser extends javax.swing.JFrame {
             }
         }
         ParseJson.writeToFile(GETOUT.users, GETOUT.USERS_FILE_PATH);
+        new MenuScreen().setVisible(true);
         dispose();
     }//GEN-LAST:event_confirmDeleteActionPerformed
 
