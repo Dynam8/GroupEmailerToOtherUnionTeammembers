@@ -194,9 +194,9 @@ public class NewUser extends javax.swing.JFrame {
         boolean isValidPermission;
         if (GETOUT.users.stream()
                 .anyMatch(i -> email.getText().equals(i.getEmail()))) {
-           // java.awt.EventQueue.invokeLater(() -> {
-                new ErrorPanel("This email already exists! Please change the email!").setVisible(true);
-           // });
+            // java.awt.EventQueue.invokeLater(() -> {
+            new ErrorPanel("This email already exists! Please change the email!").setVisible(true);
+            // });
         } else if (name.getText().equals("")
                 || email.getText().equals("")
                 || permissionLevel.getText().equals("")
@@ -209,7 +209,7 @@ public class NewUser extends javax.swing.JFrame {
             java.awt.EventQueue.invokeLater(() -> {
                 new ErrorPanel("Passwords do not match!").setVisible(true);
             });
-        } else if (!validateEmail(email.getText())) {
+        } else if (!email.getText().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")) {
             java.awt.EventQueue.invokeLater(() -> {
                 new ErrorPanel("Email is not valid!").setVisible(true);
             });
@@ -222,19 +222,22 @@ public class NewUser extends javax.swing.JFrame {
                 isValidPermission = true;
                 GETOUT.users.add(new User(name.getText(), email.getText(), password.getText(), Integer.parseInt(permissionLevel.getText())));
                 ParseJson.writeToFile(GETOUT.users, "UserCred/users.json");
+                new MenuScreen().setVisible(true);
                 System.out.println("Written Successfully");
+                dispose();
             } else {
                 java.awt.EventQueue.invokeLater(() -> {
                     new ErrorPanel("Permission level must be between 0 and 3!").setVisible(true);
                 });
             }
         }
+
     }//GEN-LAST:event_submitActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         new MenuScreen().setVisible(true);
-        
+        dispose();
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 

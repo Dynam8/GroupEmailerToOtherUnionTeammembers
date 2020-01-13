@@ -46,5 +46,17 @@
     "password": "dsgs",
     "permission": 1,
     "name": "bob"
+  },
+  {
+    "email": "aboni1@ocdsb.ca",
+    "password": "1",
+    "permission": 1,
+    "name": "Ashwin"
+  },
+  {
+    "email": "npono1@ocdsb.ca",
+    "password": "1",
+    "permission": 1,
+    "name": "Nicholai"
   }
 ]

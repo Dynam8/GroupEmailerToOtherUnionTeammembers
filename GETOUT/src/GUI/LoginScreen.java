@@ -263,7 +263,7 @@ public class LoginScreen extends javax.swing.JFrame {
 
                 
 
-                timer.schedule(task, 50000);
+                timer.schedule(task, 5000);
 
                 System.out.println(1);
 
