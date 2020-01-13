@@ -88,14 +88,9 @@ public class AttendanceScreen extends javax.swing.JFrame {
         });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            data,
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Name", "Present"
             }
         ));
         jScrollPane2.setViewportView(jTable1);
@@ -164,15 +159,28 @@ public class AttendanceScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-            ArrayList<UserAttendance> list = ParseJson.readFromFile("UserCred/Calendar/"+fileList[Sheets.getSelectedIndex()],UserAttendance.class );
-       
-        for (int i = 0; i < GETOUT.users.size(); i++) {
-            data[i][0] = GETOUT.users.get(i).getName();
-            data[i][1] = false;
-        }
-        }catch(Exception e){
-            
+        try {
+            ArrayList<UserAttendance> list = ParseJson.readFromFile("UserCred/Calendar/" + fileList[Sheets.getSelectedIndex()] + ".json", UserAttendance.class);
+            System.out.println(list.get(0).getName() + list.get(0).getPresent());
+            data = new Object[list.size()][2];
+            for (int i = 0; i < list.size(); i++) {
+                data[i][0] = list.get(i).getName();
+                data[i][1] = list.get(i).getPresent();
+            }
+            jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                    data,
+                    new String[]{
+                        "Name", "Present"
+                    }
+            ));
+
+            jScrollPane2.setViewportView(jTable1);
+        } catch (Exception e) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ErrorPanel("Cannot find file").setVisible(true);
+                }
+            });
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
