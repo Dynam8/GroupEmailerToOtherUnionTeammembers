@@ -161,7 +161,6 @@ public class AttendanceScreen extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             ArrayList<UserAttendance> list = ParseJson.readFromFile("UserCred/Calendar/" + fileList[Sheets.getSelectedIndex()] + ".json", UserAttendance.class);
-            System.out.println(list.get(0).getName() + list.get(0).getPresent());
             data = new Object[list.size()][2];
             for (int i = 0; i < list.size(); i++) {
                 data[i][0] = list.get(i).getName();
