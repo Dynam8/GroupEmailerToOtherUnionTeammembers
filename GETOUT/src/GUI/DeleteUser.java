@@ -164,7 +164,6 @@ public class DeleteUser extends javax.swing.JFrame {
             table.setValueAt(true, i, 2);
         }
         checkAll.setSelected(false);    }//GEN-LAST:event_checkAllActionPerformed
-
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         new MenuScreen().setVisible(true);
         dispose();
