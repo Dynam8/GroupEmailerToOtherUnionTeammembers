@@ -29,7 +29,7 @@ public class EmailScreen extends javax.swing.JFrame {
     Object[][] data;
 
     public EmailScreen(ArrayList<User> users) {
-        data = new Object[3][users.size()];
+        data = new Object[users.size()][3];
         for (int i = 0; i < users.size(); i++) {
 
             data[i][0] = users.get(i).getName();

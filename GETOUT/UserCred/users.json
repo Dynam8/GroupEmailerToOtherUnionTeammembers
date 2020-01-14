@@ -7,44 +7,56 @@
   },
   {
     "email": "b@b.com",
-    "password": "dsgs",
-    "permission": 4,
+    "password": "1",
+    "permission": 0,
     "name": "bob"
   },
   {
-    "email": "b@b.com",
+    "email": "2@2.com",
     "password": "dsgs",
-    "permission": 4,
+    "permission": 1,
     "name": "bob"
   },
   {
-    "email": "b@b.com",
+    "email": "3@3.com",
     "password": "dsgs",
-    "permission": 4,
+    "permission": 1,
     "name": "bob"
   },
   {
-    "email": "b@b.com",
+    "email": "4@4.com",
     "password": "dsgs",
-    "permission": 4,
+    "permission": 1,
     "name": "bob"
   },
   {
-    "email": "b@b.com",
+    "email": "5@5.com",
     "password": "dsgs",
-    "permission": 4,
+    "permission": 1,
     "name": "bob"
   },
   {
-    "email": "b@b.com",
+    "email": "6@6.com",
     "password": "dsgs",
-    "permission": 4,
+    "permission": 1,
     "name": "bob"
   },
   {
-    "email": "b@b.com",
+    "email": "7@7.com",
     "password": "dsgs",
-    "permission": 4,
+    "permission": 1,
     "name": "bob"
+  },
+  {
+    "email": "aboni1@ocdsb.ca",
+    "password": "1",
+    "permission": 1,
+    "name": "Ashwin"
+  },
+  {
+    "email": "npono1@ocdsb.ca",
+    "password": "1",
+    "permission": 1,
+    "name": "Nicholai"
   }
 ]

@@ -23,8 +23,10 @@ public class MenuScreen extends javax.swing.JFrame {
     public MenuScreen() {
 
         initComponents();
+        System.out.println(LoginScreen.currentUser.getPermission());
         if (LoginScreen.currentUser.getPermission() < 2) {
             jPanel4.setEnabled(false);
+            System.out.println("bob no permission");
         }
     }
 
@@ -193,8 +195,18 @@ public class MenuScreen extends javax.swing.JFrame {
         jPanel4.setName("Admin"); // NOI18N
 
         jButton9.setText("Add User");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("Delete User");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -255,8 +267,6 @@ public class MenuScreen extends javax.swing.JFrame {
                     .addComponent(jButton8))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jPanel4.getAccessibleContext().setAccessibleName("Admin");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -353,6 +363,25 @@ public class MenuScreen extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_emailMembersActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new NewUser().setVisible(true);
+            }
+        });
+        
+        dispose();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new DeleteUser().setVisible(true);
+            }
+        });
+        this.dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     private ArrayList<User> filterUsers(int permissionLevel) {
         return (ArrayList<User>) GETOUT.users.stream()

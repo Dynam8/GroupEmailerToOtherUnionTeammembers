@@ -14,10 +14,10 @@ public class ErrorPanel extends javax.swing.JFrame {
     /**
      * Creates new form ErrorPanel
      */
-    public ErrorPanel(String errorTxt) {
-        
+    public ErrorPanel(String errorTxt) {       
         initComponents();
         errorMessage.setText(errorTxt);
+
     }
 
     /**
@@ -68,14 +68,13 @@ public class ErrorPanel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-dispose();        
+        dispose();
 // TODO add your handling code here:
     }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;

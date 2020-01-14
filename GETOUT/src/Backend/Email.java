@@ -5,15 +5,20 @@
  */
 package Backend;
 
+import GUI.ErrorPanel;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.HttpRequest;
 import com.google.api.client.auth.oauth2.StoredCredential;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
+
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
@@ -24,6 +29,8 @@ import com.google.api.services.gmail.GmailScopes;
 import com.google.api.client.repackaged.org.apache.commons.codec.binary.Base64;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import java.util.Properties;
 
@@ -40,6 +47,8 @@ import java.io.ByteArrayOutputStream;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Email {
 
@@ -62,7 +71,7 @@ public class Email {
      * @return An authorized Credential object.
      * @throws IOException If the credentials.json file cannot be found.
      */
-    private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT, String name) throws IOException {
+   private Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT, String name) throws IOException {
         // Load client secrets.
         InputStream in = Email.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
@@ -77,16 +86,21 @@ public class Email {
                 .setCredentialDataStore(dataStore)
                 .setAccessType("offline")
                 .build();
+        
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
-        return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
+       // return null;
+        return new AuthorizationCodeInstalledApp(flow, new LocalServerReceiver()).authorize("user");
     }
 
     public Email(String name) throws GeneralSecurityException, IOException {
+        
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+       
         this.service = new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT, name.substring(0, name.indexOf('@'))))
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
+
 
     /* public static void main(String ... args) throws GeneralSecurityException, IOException{
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();

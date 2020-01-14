@@ -17,6 +17,22 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.lang.Runnable;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import java.net.Socket;
+import java.net.ServerSocket;
 
 /**
  *
@@ -25,12 +41,12 @@ import java.util.logging.Logger;
 public class LoginScreen extends javax.swing.JFrame {
 
     //private final String PATH = "UserCred/users.json";
-
     /**
      * Creates new form MenuScreen
      */
     public static User currentUser;
     public static Email email;
+
     public LoginScreen() {
         initComponents();
     }
@@ -155,39 +171,149 @@ public class LoginScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
 
-    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        // TODO add your handling code here:
+    class Task implements Callable<String> {
 
-        try {
-            
-            currentUser = GETOUT.users.stream()
-                    .filter(user -> username.getText().equals(user.getEmail()))
-                    .findAny()
-                    .orElse(null);
-            //users.stream().anyMatch(user -> username.equals(user.getEmail())&& password.equals(user.getPassword()))
-            if (currentUser == null) {
-                System.out.println("Not a valid user!");
-            } else {
-                if (password.getText().equals(currentUser.getPassword())) {
-                    try {
-                        email = new Email(currentUser.getEmail());
-                    } catch (GeneralSecurityException ex) {
-                        Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+        @Override
+        public String call() throws Exception {
+            while (!Thread.interrupted()) {
+                try {
+                    setVisible(false);
+                    email = new Email(currentUser.getEmail());
                     java.awt.EventQueue.invokeLater(new Runnable() {
                         @Override
                         public void run() {
                             new MenuScreen().setVisible(true);
                         }
                     });
-                    this.dispose();
-                }else{
-                    System.out.println("Not the correct password!");
+                    dispose();
+
+                } catch (GeneralSecurityException | IOException ex) {
+                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                break;
             }
-        } catch (IOException ex) {
-            Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+            //Thread.sleep(10000); // Just to demo a long running task of 4 seconds.
+            return "Ready!";
         }
+    }
+    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
+// TODO add your handling code here:
+        /* ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                java.awt.EventQueue.invokeLater(() -> {
+                    setVisible(true);
+                    new ErrorPanel("Session timed out, please try again").setVisible(true);
+                });
+
+            }
+        };
+        Timer timer = new Timer(3 * 1000, taskPerformer);
+        timer.setRepeats(false);
+        timer.start();
+         */
+        //try {
+        currentUser = GETOUT.users.stream()
+                .filter(user -> username.getText().equals(user.getEmail()))
+                .findAny()
+                .orElse(null);
+        //users.stream().anyMatch(user -> username.equals(user.getEmail())&& password.equals(user.getPassword()))
+        if (currentUser == null) {
+            // timer.stop();
+            java.awt.EventQueue.invokeLater(() -> {
+                new ErrorPanel("Not a valid user!").setVisible(true);
+            });
+        } else {
+            if (password.getText().equals(currentUser.getPassword())) {
+                // try {
+                //  Runnable logInThread = new Runnable() {
+                //   public void run() {
+                Timer timer = new Timer("Timer");
+                Thread loginThread = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            setVisible(false);
+                            email = new Email(currentUser.getEmail());                       
+                            timer.cancel();
+                            java.awt.EventQueue.invokeLater(() -> {
+                                new MenuScreen().setVisible(true);
+                            });
+
+                            dispose();
+
+                        } catch (GeneralSecurityException | IOException ex) {
+                            Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                };
+
+                TimerTask task = new TimerTask() {
+                    @Override
+                    public void run() {
+                        
+                            setVisible(true);
+                            new ErrorPanel("Session timed out, please try again").setVisible(true);
+
+                        
+                        loginThread.stop();
+                    }
+                };
+
+                loginThread.start();
+
+                
+
+                timer.schedule(task, 5000);
+
+                System.out.println(1);
+
+                
+                System.out.println(2);
+                // timer.cancel();
+                /*catch (GeneralSecurityException ex) {
+                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }*/
+
+ /*ExecutorService executor = Executors.newSingleThreadExecutor();
+                Future<String> future = executor.submit(new Task());
+
+                try {
+                    System.out.println(future.get(3, TimeUnit.SECONDS));
+
+                } catch (TimeoutException e) {
+                    future.cancel(true);
+
+                    setVisible(true);
+                    java.awt.EventQueue.invokeLater(() -> {
+                        setVisible(true);
+                        new ErrorPanel("Session timed out, please try again").setVisible(true);
+                    });
+
+                    System.out.println("Terminated!");
+
+                } catch (InterruptedException | ExecutionException ex) {
+                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                executor.shutdownNow();*/
+            } // };
+            //  Thread thread = new Thread(logInThread);
+            //  thread.start();
+            /* try {
+                        thread.join();
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                    }*/ // } catch (GeneralSecurityException ex) {
+            //      Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+            //  }
+            else {
+                //timer.stop();
+                System.out.println("Not the correct password!");
+            }
+        }
+        //  } catch (IOException ex) {
+        //     Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+        // }
 
     }//GEN-LAST:event_LoginActionPerformed
 
