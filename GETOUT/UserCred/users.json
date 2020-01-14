@@ -58,5 +58,11 @@
     "password": "1",
     "permission": 1,
     "name": "Nicholai"
+  },
+  {
+    "email": "sroge2@ocdsb.ca",
+    "password": "1",
+    "permission": 4,
+    "name": "Sam"
   }
 ]
