@@ -5,6 +5,13 @@
  */
 package GUI;
 
+import getout.GETOUT;
+import Backend.User;
+import java.util.ArrayList;
+import Backend.ParseJson;
+import java.util.ArrayList;
+import Database.UserAttendance;
+
 /**
  *
  * @author S331471193
@@ -14,7 +21,14 @@ public class AttendanceNew extends javax.swing.JFrame {
     /**
      * Creates new form AttendanceNew
      */
+    Object[][] data;
+
     public AttendanceNew() {
+        data = new Object[GETOUT.users.size()][2];
+        for (int i = 0; i < GETOUT.users.size(); i++) {
+            data[i][0] = GETOUT.users.get(i).getName();
+            data[i][1] = false;
+        }
         initComponents();
     }
 
@@ -29,19 +43,12 @@ public class AttendanceNew extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        dateField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
+        checkAll = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -52,101 +59,81 @@ public class AttendanceNew extends javax.swing.JFrame {
 
         jLabel1.setText("Date:");
 
-        jLabel2.setText("(Ex. December 2nd, 2019)");
+        dateField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dateFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("(Ex. 15-02-20)");
 
         jLabel3.setText("In Attendance:");
 
-        jCheckBox1.setText("all names");
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            data,
+            new String [] {
+                "Name", "Present"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Boolean.class
+            };
 
-        jCheckBox2.setText("jCheckBox2");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(table);
 
-        jCheckBox3.setText("jCheckBox3");
-
-        jCheckBox4.setText("jCheckBox4");
-
-        jCheckBox5.setText("jCheckBox5");
-
-        jCheckBox6.setText("jCheckBox6");
-
-        jCheckBox7.setText("jCheckBox7");
-
-        jCheckBox8.setText("jCheckBox8");
-
-        jScrollPane1.setToolTipText("");
-        jScrollPane1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("produces error message Ex. \"Enter date\"");
-        jScrollPane1.setViewportView(jTextArea1);
+        checkAll.setText("Check All");
+        checkAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkAllActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap(24, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jCheckBox1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jCheckBox7))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jCheckBox2)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jCheckBox8))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox3)
-                            .addComponent(jCheckBox4)
-                            .addComponent(jCheckBox5)
-                            .addComponent(jCheckBox6))
+                                .addComponent(jLabel3)
+                                .addGap(27, 27, 27)
+                                .addComponent(checkAll))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel2)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox7)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox8))
+                    .addComponent(jLabel1)
+                    .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox6))
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(checkAll))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
         );
 
         jButton1.setText("Exit");
@@ -220,13 +207,82 @@ public class AttendanceNew extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuScreen().setVisible(true);
+
+        ArrayList<UserAttendance> userList = new ArrayList<>();
+        UserAttendance user;
+
+        for (int i = 0; i < data.length; i++) {
+            user = new UserAttendance((String) table.getValueAt(i, 0), (boolean) table.getValueAt(i, 1));
+            userList.add(user);
+        }
+        try {
+            String date = dateField.getText();
+            if (date == null || date.equals("")) {
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new ErrorPanel("No date entered").setVisible(true);
+                    }
+                });
+            } else {
+                try {
+                    int day, mon, yr, temp;
+                    int[] datePos = new int[]{0, 1, 3, 4, 6, 7};
+                    for (int i : datePos) {
+                        temp = Integer.parseInt(Character.toString(date.charAt(i)));
+                    }
+                    day = Integer.parseInt(Character.toString(date.charAt(0))) * 10
+                            + Integer.parseInt(Character.toString(date.charAt(1)));
+                    mon = Integer.parseInt(Character.toString(date.charAt(3))) * 10
+                            + Integer.parseInt(Character.toString(date.charAt(4)));
+                    if (day < 32 && day > 0 && mon < 13 && mon > 0) {
+                        ParseJson.writeToFile(userList, "UserCred/Calendar/" + date + ".json");
+                        java.awt.EventQueue.invokeLater(new Runnable() {
+                            public void run() {
+                                new MenuScreen().setVisible(true);
+                            }
+                        });
+                        this.dispose();
+                        java.awt.EventQueue.invokeLater(new Runnable() {
+                            public void run() {
+                                new ErrorPanel("Saved").setVisible(true);
+                            }
+                        });
+                    } else {
+                        java.awt.EventQueue.invokeLater(new Runnable() {
+                            public void run() {
+                                new ErrorPanel("Not a proper date").setVisible(true);
+                            }
+                        });
+                    }
+
+                } catch (Exception e) {
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new ErrorPanel("Not a proper date").setVisible(true);
+                        }
+                    });
+                }
+
             }
-        });
-        this.dispose();
+        } catch (Exception e) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ErrorPanel("Error").setVisible(true);
+                }
+            });
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void checkAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAllActionPerformed
+        for (int i = 0; i < data.length; i++) {
+            table.setValueAt(true, i, 1);
+        }
+        checkAll.setSelected(false);        // TODO add your handling code here:
+    }//GEN-LAST:event_checkAllActionPerformed
+
+    private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dateFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,23 +320,16 @@ public class AttendanceNew extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkAll;
+    private javax.swing.JTextField dateField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

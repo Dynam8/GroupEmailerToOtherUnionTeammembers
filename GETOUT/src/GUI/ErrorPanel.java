@@ -14,7 +14,7 @@ public class ErrorPanel extends javax.swing.JFrame {
     /**
      * Creates new form ErrorPanel
      */
-    public ErrorPanel(String errorTxt) {
+    public ErrorPanel(String errorTxt) {       
         initComponents();
         errorMessage.setText(errorTxt);
 
