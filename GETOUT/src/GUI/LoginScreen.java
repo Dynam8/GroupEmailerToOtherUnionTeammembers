@@ -49,6 +49,9 @@ public class LoginScreen extends javax.swing.JFrame {
 
     public LoginScreen() {
         initComponents();
+        //Login.setOpaque(false);
+      //  Login.setContentAreaFilled(false);
+        //Login.setBorderPainted(false);
     }
 
     /**
@@ -60,61 +63,17 @@ public class LoginScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        username = new javax.swing.JTextField();
-        password = new javax.swing.JPasswordField();
         exitButton = new javax.swing.JButton();
         Login = new javax.swing.JButton();
+        username = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
-
-        jLabel1.setText("Username (email)");
-
-        jLabel2.setText("Password");
-
-        username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
-            }
-        });
-
-        password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                    .addComponent(username)))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
+        setMinimumSize(new java.awt.Dimension(450, 570));
+        setPreferredSize(new java.awt.Dimension(450, 595));
+        setResizable(false);
+        getContentPane().setLayout(null);
 
         exitButton.setText("Exit");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -122,42 +81,56 @@ public class LoginScreen extends javax.swing.JFrame {
                 exitButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(exitButton);
+        exitButton.setBounds(371, 520, 60, 23);
 
-        Login.setText("Login");
+        Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LoginButtonUnpressed.png"))); // NOI18N
+        Login.setToolTipText("");
+        Login.setAlignmentY(0.0F);
+        Login.setBorder(null);
+        Login.setBorderPainted(false);
+        Login.setContentAreaFilled(false);
+        Login.setFocusPainted(false);
+        Login.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LoginButtonPressed.png"))); // NOI18N
         Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoginActionPerformed(evt);
             }
         });
+        getContentPane().add(Login);
+        Login.setBounds(98, 431, 250, 70);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(exitButton)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Login)
-                        .addGap(9, 9, 9)))
-                .addContainerGap(63, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Login)
-                .addGap(4, 4, 4)
-                .addComponent(exitButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        username.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        username.setForeground(new java.awt.Color(255, 255, 255));
+        username.setBorder(null);
+        username.setOpaque(false);
+        username.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(username);
+        username.setBounds(60, 265, 330, 30);
+
+        password.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        password.setForeground(new java.awt.Color(255, 255, 255));
+        password.setAlignmentX(0.0F);
+        password.setAlignmentY(0.0F);
+        password.setBorder(null);
+        password.setOpaque(false);
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
+        getContentPane().add(password);
+        password.setBounds(60, 370, 330, 30);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Login.jpg"))); // NOI18N
+        jLabel3.setAlignmentY(0.0F);
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 0, 450, 570);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -196,8 +169,12 @@ public class LoginScreen extends javax.swing.JFrame {
             return "Ready!";
         }
     }
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameActionPerformed
+
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-// TODO add your handling code here:
+        // TODO add your handling code here:
         /* ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 java.awt.EventQueue.invokeLater(() -> {
@@ -233,7 +210,7 @@ public class LoginScreen extends javax.swing.JFrame {
                     public void run() {
                         try {
                             setVisible(false);
-                            email = new Email(currentUser.getEmail());                       
+                            email = new Email(currentUser.getEmail());
                             timer.cancel();
                             java.awt.EventQueue.invokeLater(() -> {
                                 new MenuScreen().setVisible(true);
@@ -250,60 +227,56 @@ public class LoginScreen extends javax.swing.JFrame {
                 TimerTask task = new TimerTask() {
                     @Override
                     public void run() {
-                        
-                            setVisible(true);
-                            new ErrorPanel("Session timed out, please try again").setVisible(true);
 
-                        
+                        setVisible(true);
+                        new ErrorPanel("Session timed out, please try again").setVisible(true);
+
                         loginThread.stop();
                     }
                 };
 
                 loginThread.start();
 
-                
-
-                timer.schedule(task, 5000);
+                timer.schedule(task, 60000);
 
                 System.out.println(1);
 
-                
                 System.out.println(2);
                 // timer.cancel();
                 /*catch (GeneralSecurityException ex) {
-                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                }*/
+                                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                                }*/
 
  /*ExecutorService executor = Executors.newSingleThreadExecutor();
-                Future<String> future = executor.submit(new Task());
+                                Future<String> future = executor.submit(new Task());
 
-                try {
-                    System.out.println(future.get(3, TimeUnit.SECONDS));
+                                try {
+                                    System.out.println(future.get(3, TimeUnit.SECONDS));
 
-                } catch (TimeoutException e) {
-                    future.cancel(true);
+                                } catch (TimeoutException e) {
+                                    future.cancel(true);
 
-                    setVisible(true);
-                    java.awt.EventQueue.invokeLater(() -> {
-                        setVisible(true);
-                        new ErrorPanel("Session timed out, please try again").setVisible(true);
-                    });
+                                    setVisible(true);
+                                    java.awt.EventQueue.invokeLater(() -> {
+                                        setVisible(true);
+                                        new ErrorPanel("Session timed out, please try again").setVisible(true);
+                                    });
 
-                    System.out.println("Terminated!");
+                                    System.out.println("Terminated!");
 
-                } catch (InterruptedException | ExecutionException ex) {
-                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                                } catch (InterruptedException | ExecutionException ex) {
+                                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                                }
 
-                executor.shutdownNow();*/
+                                executor.shutdownNow();*/
             } // };
             //  Thread thread = new Thread(logInThread);
             //  thread.start();
             /* try {
-                        thread.join();
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                    }*/ // } catch (GeneralSecurityException ex) {
+                                thread.join();
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
+                            }*/ // } catch (GeneralSecurityException ex) {
             //      Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
             //  }
             else {
@@ -314,12 +287,7 @@ public class LoginScreen extends javax.swing.JFrame {
         //  } catch (IOException ex) {
         //     Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
         // }
-
     }//GEN-LAST:event_LoginActionPerformed
-
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -358,9 +326,7 @@ public class LoginScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Login;
     private javax.swing.JButton exitButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables

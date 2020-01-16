@@ -5,30 +5,31 @@
  */
 package GUI;
 
-import Backend.Login_DEPRECIATED;
 import getout.GETOUT;
 import java.util.ArrayList;
 import Backend.User;
+import java.io.IOException;
 import java.util.stream.Collectors;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author S331471193
+ * @author Emperor Master Chen
  */
 public class MenuScreen extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuScreen
+     * Creates new form MenuScreen2
      */
     public MenuScreen() {
-
         initComponents();
-        System.out.println(LoginScreen.currentUser.getPermission());
-        if (LoginScreen.currentUser.getPermission() < 2) {
-            jPanel4.setEnabled(false);
-            System.out.println("bob no permission");
-        }
+
     }
+    boolean hasClickedEmail, hasClickedAttendance, hasClickedAdmin, hasClickedUser = false;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,356 +40,296 @@ public class MenuScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        emailAll = new javax.swing.JButton();
-        emailVolunteers = new javax.swing.JButton();
-        emailExecutives = new javax.swing.JButton();
-        emailTeachers = new javax.swing.JButton();
-        emailMembers = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
+        EmailComboBox = new javax.swing.JComboBox<>();
+        ButtonforEmailCombo = new javax.swing.JButton();
+        AttendanceComboBox = new javax.swing.JComboBox<>();
+        ButtonforAttendanceCombo = new javax.swing.JButton();
+        AdminComboBox = new javax.swing.JComboBox<>();
+        ButtonforAdminCombo = new javax.swing.JButton();
+        UserComboBox = new javax.swing.JComboBox<>();
+        ButtonforUserCombo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(380, 460));
+        setResizable(false);
+        setSize(new java.awt.Dimension(380, 430));
+        getContentPane().setLayout(null);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu"));
+        Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/MenuScreen.jpg"))); // NOI18N
+        Background.setText("jLabel1");
+        Background.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Background.setFocusable(false);
+        Background.setOpaque(true);
+        getContentPane().add(Background);
+        Background.setBounds(0, 0, 380, 430);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Send email by group"));
-
-        emailAll.setText("All");
-        emailAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailAllActionPerformed(evt);
+        EmailComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Volunteers", "Members", "Executives", "Teachers" }));
+        EmailComboBox.setBorder(null);
+        EmailComboBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        EmailComboBox.setFocusable(false);
+        EmailComboBox.setLightWeightPopupEnabled(false);
+        EmailComboBox.setMinimumSize(new java.awt.Dimension(77, 25));
+        EmailComboBox.setOpaque(false);
+        EmailComboBox.setPreferredSize(new java.awt.Dimension(293, 0));
+        EmailComboBox.setRequestFocusEnabled(false);
+        EmailComboBox.setVerifyInputWhenFocusTarget(false);
+        EmailComboBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                EmailComboBoxMouseEntered(evt);
             }
         });
-
-        emailVolunteers.setText("Volunteers");
-        emailVolunteers.addActionListener(new java.awt.event.ActionListener() {
+        EmailComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailVolunteersActionPerformed(evt);
+                EmailComboBoxActionPerformed(evt);
             }
         });
+        getContentPane().add(EmailComboBox);
+        EmailComboBox.setBounds(45, 173, 293, 0);
 
-        emailExecutives.setText("Executives");
-        emailExecutives.addActionListener(new java.awt.event.ActionListener() {
+        ButtonforEmailCombo.setBorderPainted(false);
+        ButtonforEmailCombo.setContentAreaFilled(false);
+        ButtonforEmailCombo.setOpaque(false);
+        ButtonforEmailCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailExecutivesActionPerformed(evt);
+                ButtonforEmailComboActionPerformed(evt);
             }
         });
+        getContentPane().add(ButtonforEmailCombo);
+        ButtonforEmailCombo.setBounds(45, 110, 290, 62);
 
-        emailTeachers.setText("Teachers");
-        emailTeachers.addActionListener(new java.awt.event.ActionListener() {
+        AttendanceComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Create new attendance", "View attendance" }));
+        AttendanceComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailTeachersActionPerformed(evt);
+                AttendanceComboBoxActionPerformed(evt);
             }
         });
+        getContentPane().add(AttendanceComboBox);
+        AttendanceComboBox.setBounds(46, 267, 290, 0);
 
-        emailMembers.setText("Members");
-        emailMembers.addActionListener(new java.awt.event.ActionListener() {
+        ButtonforAttendanceCombo.setText("jButton1");
+        ButtonforAttendanceCombo.setBorderPainted(false);
+        ButtonforAttendanceCombo.setContentAreaFilled(false);
+        ButtonforAttendanceCombo.setOpaque(false);
+        ButtonforAttendanceCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailMembersActionPerformed(evt);
+                ButtonforAttendanceComboActionPerformed(evt);
             }
         });
+        getContentPane().add(ButtonforAttendanceCombo);
+        ButtonforAttendanceCombo.setBounds(46, 204, 290, 63);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(emailAll)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(emailExecutives))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(emailVolunteers)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(emailTeachers)))
-                .addGap(18, 18, 18)
-                .addComponent(emailMembers)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
-        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {emailAll, emailExecutives, emailTeachers, emailVolunteers});
-
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(emailAll)
-                            .addComponent(emailExecutives))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(emailVolunteers)
-                            .addComponent(emailTeachers)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(emailMembers)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Attendance"));
-
-        jButton5.setText("Review Attendance");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        AdminComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Create new user", "Delete user" }));
+        AdminComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                AdminComboBoxActionPerformed(evt);
             }
         });
+        getContentPane().add(AdminComboBox);
+        AdminComboBox.setBounds(46, 361, 289, 0);
 
-        jButton6.setText("Create new");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        ButtonforAdminCombo.setText("jButton1");
+        ButtonforAdminCombo.setBorderPainted(false);
+        ButtonforAdminCombo.setContentAreaFilled(false);
+        ButtonforAdminCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                ButtonforAdminComboActionPerformed(evt);
             }
         });
+        getContentPane().add(ButtonforAdminCombo);
+        ButtonforAdminCombo.setBounds(45, 298, 290, 62);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton5, jButton6});
-
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jButton7.setText("Exit");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        UserComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Log out and remember me", "Log out and don't remember me" }));
+        UserComboBox.setMinimumSize(new java.awt.Dimension(0, 0));
+        UserComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                UserComboBoxActionPerformed(evt);
             }
         });
+        getContentPane().add(UserComboBox);
+        UserComboBox.setBounds(148, 91, 190, 0);
 
-        jButton8.setText("Logout");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        ButtonforUserCombo.setText("jButton1");
+        ButtonforUserCombo.setBorderPainted(false);
+        ButtonforUserCombo.setContentAreaFilled(false);
+        ButtonforUserCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                ButtonforUserComboActionPerformed(evt);
             }
         });
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Admin"));
-        jPanel4.setName("Admin"); // NOI18N
-
-        jButton9.setText("Add User");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-
-        jButton10.setText("Delete User");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton10)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton10)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton7, jButton8});
-
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(ButtonforUserCombo);
+        ButtonforUserCombo.setBounds(270, 27, 67, 63);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginScreen().setVisible(true);
-            }
-        });
-        this.dispose();
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AttendanceNew().setVisible(true);
-            }
-        });
-        this.dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AttendanceScreen().setVisible(true);
-            }
-        });
-        this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void emailAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailAllActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmailScreen(GETOUT.users).setVisible(true);
-            }
-        });
-        this.dispose();
-    }//GEN-LAST:event_emailAllActionPerformed
-
-    private void emailExecutivesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailExecutivesActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmailScreen(filterUsers(2)).setVisible(true);
-            }
-        });
-        this.dispose();
-    }//GEN-LAST:event_emailExecutivesActionPerformed
-
-    private void emailTeachersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTeachersActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmailScreen(filterUsers(3)).setVisible(true);
-            }
-        });
-        this.dispose();
-    }//GEN-LAST:event_emailTeachersActionPerformed
-
-    private void emailVolunteersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailVolunteersActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmailScreen(filterUsers(0)).setVisible(true);
-            }
-        });
-     
-        this.dispose();    }//GEN-LAST:event_emailVolunteersActionPerformed
-
-    private void emailMembersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailMembersActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmailScreen(filterUsers(1)).setVisible(true);
-            }
-        });
-        this.dispose();
-    }//GEN-LAST:event_emailMembersActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewUser().setVisible(true);
-            }
-        });
-        
-        dispose();
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DeleteUser().setVisible(true);
-            }
-        });
-        this.dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private ArrayList<User> filterUsers(int permissionLevel) {
+private ArrayList<User> filterUsers(int permissionLevel) {
         return (ArrayList<User>) GETOUT.users.stream()
                 .filter(user -> user.getPermission() == permissionLevel)
                 .collect(Collectors.toList());
 
     }
+
+    private void EmailComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailComboBoxActionPerformed
+
+        switch (EmailComboBox.getSelectedItem().toString()) {
+            case ("All"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new EmailScreen(GETOUT.users).setVisible(true);
+                    }
+                });
+                this.dispose();
+                break;
+            case ("Volunteers"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new EmailScreen(filterUsers(0)).setVisible(true);
+                    }
+                });
+
+                this.dispose();
+                break;
+            case ("Members"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new EmailScreen(filterUsers(1)).setVisible(true);
+                    }
+                });
+                this.dispose();
+                break;
+            case ("Executives"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new EmailScreen(filterUsers(2)).setVisible(true);
+                    }
+                });
+                this.dispose();
+                break;
+            case ("Teachers"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new EmailScreen(filterUsers(3)).setVisible(true);
+                    }
+                });
+                this.dispose();
+                break;
+
+        }
+    }//GEN-LAST:event_EmailComboBoxActionPerformed
+
+    private void AttendanceComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AttendanceComboBoxActionPerformed
+        switch (AttendanceComboBox.getSelectedItem().toString()) {
+            case ("Create new attendance"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new AttendanceNew().setVisible(true);
+                    }
+                });
+                this.dispose();
+                break;
+            case ("View attendance"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new AttendanceScreen().setVisible(true);
+                    }
+                });
+                this.dispose();
+                break;
+        }
+    }//GEN-LAST:event_AttendanceComboBoxActionPerformed
+
+    private void AdminComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminComboBoxActionPerformed
+        switch (AdminComboBox.getSelectedItem().toString()) {
+            case ("Create new user"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new NewUser().setVisible(true);
+                    }
+                });
+
+                dispose();
+                break;
+            case ("Delete user"):
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new DeleteUser().setVisible(true);
+                    }
+                });
+                this.dispose();
+                break;
+        }
+    }//GEN-LAST:event_AdminComboBoxActionPerformed
+
+    private void UserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserComboBoxActionPerformed
+        switch (UserComboBox.getSelectedItem().toString()) {
+            case ("Log out and remember me"):
+                
+                this.dispose();
+                break;
+            case ("Log out and don't remember me"): {
+                try {
+                    Files.deleteIfExists(Paths.get("UserCred/tokens/" + LoginScreen.currentUser.getEmail().substring(0, LoginScreen.currentUser.getEmail().indexOf('@'))));
+                } catch (IOException ex) {
+                    Logger.getLogger(MenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                this.dispose();
+                break;
+                
+            }
+        }
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new LoginScreen().setVisible(true);
+                }
+            });
+            this.dispose();
+        
+    }//GEN-LAST:event_UserComboBoxActionPerformed
+
+    private void EmailComboBoxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailComboBoxMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmailComboBoxMouseEntered
+
+    private void ButtonforEmailComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforEmailComboActionPerformed
+        if (hasClickedEmail) {
+            EmailComboBox.hidePopup();
+            hasClickedEmail = false;
+        } else {
+            EmailComboBox.showPopup();
+            hasClickedEmail = true;
+        }
+    }//GEN-LAST:event_ButtonforEmailComboActionPerformed
+
+    private void ButtonforAttendanceComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforAttendanceComboActionPerformed
+        if (hasClickedAttendance) {
+            AttendanceComboBox.hidePopup();
+            hasClickedAttendance = false;
+        } else {
+            AttendanceComboBox.showPopup();
+            hasClickedAttendance = true;
+        }
+    }//GEN-LAST:event_ButtonforAttendanceComboActionPerformed
+
+    private void ButtonforAdminComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforAdminComboActionPerformed
+        if (hasClickedAdmin) {
+            AdminComboBox.hidePopup();
+            hasClickedAdmin = false;
+        } else {
+            AdminComboBox.showPopup();
+            hasClickedAdmin = true;
+        }
+    }//GEN-LAST:event_ButtonforAdminComboActionPerformed
+
+    private void ButtonforUserComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforUserComboActionPerformed
+
+        if (hasClickedUser) {
+            UserComboBox.hidePopup();
+            hasClickedUser = false;
+        } else {
+            UserComboBox.showPopup();
+            hasClickedUser = true;
+        }
+    }//GEN-LAST:event_ButtonforUserComboActionPerformed
 
     /**
      * @param args the command line arguments
@@ -416,6 +357,7 @@ public class MenuScreen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -426,20 +368,14 @@ public class MenuScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton emailAll;
-    private javax.swing.JButton emailExecutives;
-    private javax.swing.JButton emailMembers;
-    private javax.swing.JButton emailTeachers;
-    private javax.swing.JButton emailVolunteers;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JComboBox<String> AdminComboBox;
+    private javax.swing.JComboBox<String> AttendanceComboBox;
+    private javax.swing.JLabel Background;
+    private javax.swing.JButton ButtonforAdminCombo;
+    private javax.swing.JButton ButtonforAttendanceCombo;
+    private javax.swing.JButton ButtonforEmailCombo;
+    private javax.swing.JButton ButtonforUserCombo;
+    private javax.swing.JComboBox<String> EmailComboBox;
+    private javax.swing.JComboBox<String> UserComboBox;
     // End of variables declaration//GEN-END:variables
 }
