@@ -82,7 +82,7 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(exitButton);
-        exitButton.setBounds(371, 520, 60, 23);
+        exitButton.setBounds(371, 520, 60, 32);
 
         Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LoginButtonUnpressed.png"))); // NOI18N
         Login.setToolTipText("");

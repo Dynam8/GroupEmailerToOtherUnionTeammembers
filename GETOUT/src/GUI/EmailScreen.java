@@ -229,7 +229,7 @@ public class EmailScreen extends javax.swing.JFrame {
                 
         try {
             LoginScreen.email.sendEmail(to, LoginScreen.currentUser.getEmail(), subject.getText(), body.getText());
-            System.out.println("Sent successfully");
+            new ErrorPanel("Sent Successfully", true).setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(EmailScreen.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MessagingException ex) {
