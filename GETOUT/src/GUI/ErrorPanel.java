@@ -14,15 +14,16 @@ public class ErrorPanel extends javax.swing.JFrame {
     /**
      * Creates new form ErrorPanel
      */
-    public ErrorPanel(String errorTxt) {       
+    public ErrorPanel(String errorTxt) {
         initComponents();
-        errorMessage.setText(errorTxt);
+        errorMessage.setText("<html>" + errorTxt + "</html>");
         infoImage.setVisible(false);
-
     }
-    public ErrorPanel(String errorTxt, boolean info) {       
+
+    public ErrorPanel(String errorTxt, boolean info) {
         initComponents();
-        errorMessage.setText(errorTxt);
+
+        errorMessage.setText("<html>" + errorTxt + "</html>");
         infoImage.setVisible(true);
 
     }
@@ -52,9 +53,11 @@ public class ErrorPanel extends javax.swing.JFrame {
         errorMessage.setForeground(new java.awt.Color(255, 255, 255));
         errorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         errorMessage.setText("ErrorText");
+        errorMessage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        errorMessage.setAlignmentX(0.5F);
         errorMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(errorMessage);
-        errorMessage.setBounds(90, 170, 200, 24);
+        errorMessage.setBounds(90, 160, 200, 90);
 
         infoImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/InfoPanel.jpg"))); // NOI18N
         infoImage.setOpaque(true);

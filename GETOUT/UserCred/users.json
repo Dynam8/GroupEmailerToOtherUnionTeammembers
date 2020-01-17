@@ -30,12 +30,6 @@
     "name": "bob"
   },
   {
-    "email": "5@5.com",
-    "password": "dsgs",
-    "permission": 1,
-    "name": "bob"
-  },
-  {
     "email": "6@6.com",
     "password": "dsgs",
     "permission": 1,
