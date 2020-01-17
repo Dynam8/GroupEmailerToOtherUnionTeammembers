@@ -83,7 +83,8 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(exitButton);
-        exitButton.setBounds(371, 520, 60, 26);
+
+        exitButton.setBounds(371, 520, 60, 25);
 
         Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LoginButtonUnpressed.png"))); // NOI18N
         Login.setToolTipText("");
@@ -131,7 +132,7 @@ public class LoginScreen extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Login.jpg"))); // NOI18N
         jLabel3.setAlignmentY(0.0F);
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(0, 0, 0, 570);
+        jLabel3.setBounds(0, 0, 450, 570);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

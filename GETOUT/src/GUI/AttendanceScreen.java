@@ -235,7 +235,7 @@ public class AttendanceScreen extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_eMailButtonActionPerformed
-
+  
     /**
      * @param args the command line arguments
      */
