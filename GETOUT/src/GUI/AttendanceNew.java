@@ -245,7 +245,7 @@ public class AttendanceNew extends javax.swing.JFrame {
                         this.dispose();
                         java.awt.EventQueue.invokeLater(new Runnable() {
                             public void run() {
-                                new ErrorPanel("Saved", true).setVisible(true);
+                                new ErrorPanel("Saved").setVisible(true);
                             }
                         });
                     } else {

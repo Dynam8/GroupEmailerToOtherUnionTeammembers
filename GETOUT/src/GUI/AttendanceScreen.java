@@ -26,18 +26,10 @@ public class AttendanceScreen extends javax.swing.JFrame {
     Object[][] data;
 
     public AttendanceScreen() {
-        try{
         fileList = (new File("UserCred/Calendar")).list();
         attList = fileList;
         for (int i = 0; i < fileList.length; i++) {
             attList[i] = (fileList[i].substring(0, fileList[i].lastIndexOf('.')));
-        }
-        }catch(Exception e){
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new ErrorPanel("No attendance has been taken").setVisible(true);
-                }
-            });
         }
 
         initComponents();
@@ -220,12 +212,11 @@ public class AttendanceScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void eMailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eMailButtonActionPerformed
-        try {
         String[] absent = Arrays.stream(data)
                 .filter(i -> i[1].equals(false))
                 .map(o -> o[2])
                 .toArray(String[]::new);
-        
+        try {
             LoginScreen.email.sendEmail(absent, LoginScreen.currentUser.getEmail(),
                     "You missed a Student Council Meeting",
                     "Hello, \n You are receiving this email because you missed a student council meeting.\n"
@@ -233,7 +224,7 @@ public class AttendanceScreen extends javax.swing.JFrame {
             );
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    new ErrorPanel("Successfully sent email.", true).setVisible(true);
+                    new ErrorPanel("Successfully sent email.").setVisible(true);
                 }
             });
         } catch (Exception e) {
