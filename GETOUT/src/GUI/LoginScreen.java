@@ -63,6 +63,8 @@ public class LoginScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         Login = new javax.swing.JButton();
         username = new javax.swing.JTextField();
@@ -75,6 +77,30 @@ public class LoginScreen extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Browser won't load?");
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(48, 548, 130, 16);
+
+        jButton1.setBorder(null);
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(50, 520, 170, 30);
+
         exitButton.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         exitButton.setText("Exit");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +109,7 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(exitButton);
-        exitButton.setBounds(371, 520, 60, 25);
+        exitButton.setBounds(371, 520, 60, 32);
 
         Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LoginButtonUnpressed.png"))); // NOI18N
         Login.setToolTipText("");
@@ -290,6 +316,17 @@ public class LoginScreen extends javax.swing.JFrame {
         // }
     }//GEN-LAST:event_LoginActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new ErrorPanel("Our program uses Gmail Api. In order to get our app verified, "
+                + "we would have to pay money. "
+                + "To get around this, click 'Advanced', and then 'Proceed to QuickStart'.", true).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new ErrorPanel("Gmail's api only works on Chrome. "
+                + "Copy the link from your browser and paste it on a Chrome Browser.", true).setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,6 +364,8 @@ public class LoginScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Login;
     private javax.swing.JButton exitButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;

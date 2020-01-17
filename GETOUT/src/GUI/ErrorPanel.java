@@ -49,7 +49,7 @@ public class ErrorPanel extends javax.swing.JFrame {
         setType(java.awt.Window.Type.POPUP);
         getContentPane().setLayout(null);
 
-        errorMessage.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        errorMessage.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         errorMessage.setForeground(new java.awt.Color(255, 255, 255));
         errorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         errorMessage.setText("ErrorText");
@@ -57,7 +57,7 @@ public class ErrorPanel extends javax.swing.JFrame {
         errorMessage.setAlignmentX(0.5F);
         errorMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         getContentPane().add(errorMessage);
-        errorMessage.setBounds(90, 160, 200, 90);
+        errorMessage.setBounds(30, 150, 310, 110);
 
         infoImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/InfoPanel.jpg"))); // NOI18N
         infoImage.setOpaque(true);

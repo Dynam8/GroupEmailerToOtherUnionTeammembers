@@ -50,6 +50,7 @@ public class NewUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -63,6 +64,7 @@ public class NewUser extends javax.swing.JFrame {
         confirmPassword = new javax.swing.JPasswordField();
         submit = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -70,6 +72,12 @@ public class NewUser extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(330, 573));
         getContentPane().setLayout(null);
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 9)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("What is this?");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(10, 270, 80, 12);
 
         jLabel1.setFont(new java.awt.Font("Open Sans", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -81,7 +89,7 @@ public class NewUser extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(5, 150, 170, 23);
+        jLabel2.setBounds(5, 150, 170, 21);
 
         jLabel3.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,7 +107,7 @@ public class NewUser extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(5, 296, 190, 23);
+        jLabel5.setBounds(5, 296, 190, 21);
 
         jLabel6.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -124,7 +132,7 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(email);
-        email.setBounds(150, 205, 170, 16);
+        email.setBounds(150, 205, 170, 15);
 
         permissionLevel.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
         permissionLevel.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,7 +146,7 @@ public class NewUser extends javax.swing.JFrame {
         password.setBorder(null);
         password.setOpaque(false);
         getContentPane().add(password);
-        password.setBounds(150, 303, 170, 16);
+        password.setBounds(150, 303, 170, 15);
 
         confirmPassword.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
         confirmPassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -150,7 +158,7 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(confirmPassword);
-        confirmPassword.setBounds(150, 352, 170, 16);
+        confirmPassword.setBounds(150, 352, 170, 15);
 
         submit.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
         submit.setForeground(new java.awt.Color(255, 255, 255));
@@ -158,7 +166,6 @@ public class NewUser extends javax.swing.JFrame {
         submit.setBorder(null);
         submit.setBorderPainted(false);
         submit.setContentAreaFilled(false);
-        submit.setOpaque(false);
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
@@ -180,9 +187,21 @@ public class NewUser extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(125, 480, 80, 20);
 
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(7, 272, 70, 10);
+
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/NewUserBackground1.jpg"))); // NOI18N
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(0, 0, 330, 543);
+        jLabel7.setBounds(0, 0, 0, 0);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -246,6 +265,14 @@ public class NewUser extends javax.swing.JFrame {
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new ErrorPanel("Permissions determine what a user can access. 0 is for volunteer, "
+                + "1 is for member, "
+                + "2 is for executive, "
+                + "and 3 is for teacher. "
+                + "Only 2 and 3 can add/delete users and access attendance.", true).setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,6 +313,7 @@ public class NewUser extends javax.swing.JFrame {
     private javax.swing.JPasswordField confirmPassword;
     private javax.swing.JTextField email;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -293,6 +321,7 @@ public class NewUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField name;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField permissionLevel;

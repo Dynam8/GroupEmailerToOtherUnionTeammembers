@@ -27,6 +27,18 @@ public class MenuScreen extends javax.swing.JFrame {
      */
     public MenuScreen() {
         initComponents();
+        jLabel1.setVisible(false);
+        jLabel2.setVisible(false);
+        jLabel3.setVisible(false);
+        jLabel4.setVisible(false);
+        if (LoginScreen.currentUser.getPermission() < 2) {
+            jLabel1.setVisible(true);
+            jLabel2.setVisible(true);
+            jLabel3.setVisible(true);
+            jLabel4.setVisible(true);
+            ButtonforAdminCombo.setEnabled(false);
+            ButtonforAttendanceCombo.setEnabled(false);
+        }
 
     }
     boolean hasClickedEmail, hasClickedAttendance, hasClickedAdmin, hasClickedUser = false;
@@ -40,6 +52,10 @@ public class MenuScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         Background = new javax.swing.JLabel();
         EmailComboBox = new javax.swing.JComboBox<>();
         ButtonforEmailCombo = new javax.swing.JButton();
@@ -55,6 +71,27 @@ public class MenuScreen extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(380, 430));
         getContentPane().setLayout(null);
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("You are not authorized to use this function!");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(70, 320, 250, 16);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Disabled.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(41, 296, 300, 70);
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("You are not authorized to use this function!");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(70, 230, 250, 16);
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Disabled.png"))); // NOI18N
+        jLabel1.setText("bbv");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(40, 200, 300, 70);
 
         Background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/MenuScreen.jpg"))); // NOI18N
         Background.setText("jLabel1");
@@ -89,7 +126,6 @@ public class MenuScreen extends javax.swing.JFrame {
 
         ButtonforEmailCombo.setBorderPainted(false);
         ButtonforEmailCombo.setContentAreaFilled(false);
-        ButtonforEmailCombo.setOpaque(false);
         ButtonforEmailCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforEmailComboActionPerformed(evt);
@@ -110,7 +146,6 @@ public class MenuScreen extends javax.swing.JFrame {
         ButtonforAttendanceCombo.setText("jButton1");
         ButtonforAttendanceCombo.setBorderPainted(false);
         ButtonforAttendanceCombo.setContentAreaFilled(false);
-        ButtonforAttendanceCombo.setOpaque(false);
         ButtonforAttendanceCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforAttendanceComboActionPerformed(evt);
@@ -263,7 +298,7 @@ private ArrayList<User> filterUsers(int permissionLevel) {
     private void UserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserComboBoxActionPerformed
         switch (UserComboBox.getSelectedItem().toString()) {
             case ("Log out and remember me"):
-                
+
                 this.dispose();
                 break;
             case ("Log out and don't remember me"): {
@@ -274,16 +309,16 @@ private ArrayList<User> filterUsers(int permissionLevel) {
                 }
                 this.dispose();
                 break;
-                
+
             }
         }
-            java.awt.EventQueue.invokeLater(new Runnable() {
-                public void run() {
-                    new LoginScreen().setVisible(true);
-                }
-            });
-            this.dispose();
-        
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LoginScreen().setVisible(true);
+            }
+        });
+        this.dispose();
+
     }//GEN-LAST:event_UserComboBoxActionPerformed
 
     private void EmailComboBoxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailComboBoxMouseEntered
@@ -377,5 +412,9 @@ private ArrayList<User> filterUsers(int permissionLevel) {
     private javax.swing.JButton ButtonforUserCombo;
     private javax.swing.JComboBox<String> EmailComboBox;
     private javax.swing.JComboBox<String> UserComboBox;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }
