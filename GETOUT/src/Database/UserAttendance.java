@@ -12,10 +12,12 @@ package Database;
 public class UserAttendance {
     private String name;
     private boolean present;
+    private String email;
     
-    public UserAttendance(String name, boolean present){
+    public UserAttendance(String name, boolean present, String email){
         this.name = name;
         this.present = present;
+        this.email = email;
     }
     public String getName() {
         return name;
@@ -31,5 +33,13 @@ public class UserAttendance {
     
     public void setPresent(boolean present) {
         this.present = present;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
