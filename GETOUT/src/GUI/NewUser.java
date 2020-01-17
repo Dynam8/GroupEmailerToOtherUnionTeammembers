@@ -50,7 +50,6 @@ public class NewUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -64,120 +63,126 @@ public class NewUser extends javax.swing.JFrame {
         confirmPassword = new javax.swing.JPasswordField();
         submit = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(330, 573));
+        setResizable(false);
+        setSize(new java.awt.Dimension(330, 573));
+        getContentPane().setLayout(null);
 
-        jLabel1.setText("New User");
+        jLabel1.setFont(new java.awt.Font("Open Sans", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Create New User");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(70, 70, 210, 40);
 
+        jLabel2.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(5, 150, 170, 23);
 
+        jLabel3.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Email");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(5, 190, 160, 30);
 
+        jLabel4.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Permission Level");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(5, 242, 190, 28);
 
+        jLabel5.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(5, 296, 190, 23);
 
+        jLabel6.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Confirm Password");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(5, 345, 190, 24);
 
+        name.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
+        name.setForeground(new java.awt.Color(255, 255, 255));
+        name.setBorder(null);
+        name.setOpaque(false);
+        getContentPane().add(name);
+        name.setBounds(150, 152, 170, 20);
+
+        email.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
+        email.setForeground(new java.awt.Color(255, 255, 255));
+        email.setBorder(null);
+        email.setOpaque(false);
         email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailActionPerformed(evt);
             }
         });
+        getContentPane().add(email);
+        email.setBounds(150, 205, 170, 16);
 
+        permissionLevel.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
+        permissionLevel.setForeground(new java.awt.Color(255, 255, 255));
+        permissionLevel.setBorder(null);
+        permissionLevel.setOpaque(false);
+        getContentPane().add(permissionLevel);
+        permissionLevel.setBounds(150, 250, 170, 20);
+
+        password.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
+        password.setForeground(new java.awt.Color(255, 255, 255));
+        password.setBorder(null);
+        password.setOpaque(false);
+        getContentPane().add(password);
+        password.setBounds(150, 303, 170, 16);
+
+        confirmPassword.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
+        confirmPassword.setForeground(new java.awt.Color(255, 255, 255));
+        confirmPassword.setBorder(null);
+        confirmPassword.setOpaque(false);
         confirmPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmPasswordActionPerformed(evt);
             }
         });
+        getContentPane().add(confirmPassword);
+        confirmPassword.setBounds(150, 352, 170, 16);
 
+        submit.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
+        submit.setForeground(new java.awt.Color(255, 255, 255));
         submit.setText("Submit");
+        submit.setBorder(null);
+        submit.setBorderPainted(false);
+        submit.setContentAreaFilled(false);
+        submit.setOpaque(false);
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
             }
         });
+        getContentPane().add(submit);
+        submit.setBounds(100, 420, 130, 45);
 
+        jButton1.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Cancel");
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(125, 480, 80, 20);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2))
-                            .addComponent(jLabel5)))
-                    .addComponent(jLabel6))
-                .addGap(53, 53, 53)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(password, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(name, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(confirmPassword)
-                    .addComponent(email)
-                    .addComponent(permissionLevel, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                .addContainerGap(76, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(submit)
-                .addGap(47, 47, 47))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(permissionLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(confirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submit)
-                    .addComponent(jButton1))
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/NewUserBackground1.jpg"))); // NOI18N
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(0, 0, 330, 543);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -287,7 +292,7 @@ public class NewUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField name;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField permissionLevel;

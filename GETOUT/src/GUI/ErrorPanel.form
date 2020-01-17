@@ -45,11 +45,13 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="ErrorText"/>
+        <Property name="verticalAlignment" type="int" value="1"/>
+        <Property name="alignmentX" type="float" value="0.5"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="90" y="170" width="200" height="-1"/>
+          <AbsoluteConstraints x="90" y="160" width="200" height="90"/>
         </Constraint>
       </Constraints>
     </Component>

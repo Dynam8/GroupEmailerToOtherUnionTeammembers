@@ -75,6 +75,7 @@ public class LoginScreen extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(null);
 
+        exitButton.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         exitButton.setText("Exit");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +83,7 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(exitButton);
-        exitButton.setBounds(371, 520, 60, 32);
+        exitButton.setBounds(371, 520, 60, 25);
 
         Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LoginButtonUnpressed.png"))); // NOI18N
         Login.setToolTipText("");
@@ -229,7 +230,7 @@ public class LoginScreen extends javax.swing.JFrame {
                     public void run() {
 
                         setVisible(true);
-                        new ErrorPanel("Session timed out, please try again").setVisible(true);
+                        new ErrorPanel("Session timed out, please try again.").setVisible(true);
 
                         loginThread.stop();
                     }
