@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -37,6 +38,14 @@ public class EmailScreen extends javax.swing.JFrame {
             data[i][2] = false;
         }
         initComponents();
+        table.setOpaque(false);
+        ((DefaultTableCellRenderer) table.getDefaultRenderer(Object.class)).setOpaque(false);
+        jScrollPane1.setOpaque(false);
+        jScrollPane1.getViewport().setOpaque(false);
+        table.setShowGrid(false);
+        table.getTableHeader().setOpaque(false);
+        jScrollPane2.setOpaque(false);
+        jScrollPane2.getViewport().setOpaque(false);
     }
 
     /**
@@ -48,7 +57,6 @@ public class EmailScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -57,15 +65,19 @@ public class EmailScreen extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         body = new javax.swing.JTextArea();
         checkAll = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         send = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(650, 432));
         setResizable(false);
+        setSize(new java.awt.Dimension(650, 432));
+        getContentPane().setLayout(null);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("New Email"));
-
+        table.setForeground(new java.awt.Color(255, 255, 255));
         table.setModel(new javax.swing.table.DefaultTableModel(
             data,
             new String [] {
@@ -80,7 +92,11 @@ public class EmailScreen extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        table.setGridColor(new java.awt.Color(255, 255, 255));
+        table.setOpaque(false);
         table.setRowHeight(24);
+        table.setSelectionBackground(new java.awt.Color(153, 204, 255));
+        table.setSelectionForeground(new java.awt.Color(0, 0, 0));
         table.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tableKeyPressed(evt);
@@ -88,126 +104,106 @@ public class EmailScreen extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(table);
 
-        jLabel1.setText("Subject:");
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(10, 60, 310, 246);
 
+        jLabel1.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Subject:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(330, 60, 50, 17);
+
+        subject.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        subject.setForeground(new java.awt.Color(255, 255, 255));
+        subject.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        subject.setCaretColor(new java.awt.Color(255, 255, 255));
+        subject.setOpaque(false);
+        getContentPane().add(subject);
+        subject.setBounds(390, 60, 149, 19);
+
+        jLabel2.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Body:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(338, 100, 40, 17);
+
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setOpaque(false);
 
         body.setColumns(20);
-        body.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        body.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        body.setForeground(new java.awt.Color(255, 255, 255));
         body.setLineWrap(true);
         body.setRows(5);
         body.setWrapStyleWord(true);
         body.setAutoscrolls(false);
+        body.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        body.setCaretColor(new java.awt.Color(255, 255, 255));
+        body.setOpaque(false);
+        body.setSelectedTextColor(new java.awt.Color(0, 0, 0));
+        body.setSelectionColor(new java.awt.Color(51, 204, 255));
         jScrollPane1.setViewportView(body);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(390, 100, 245, 210);
+
+        checkAll.setForeground(new java.awt.Color(255, 255, 255));
         checkAll.setText("Select All");
+        checkAll.setContentAreaFilled(false);
         checkAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkAllActionPerformed(evt);
             }
         });
+        getContentPane().add(checkAll);
+        checkAll.setBounds(209, 320, 100, 23);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(checkAll))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(subject, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel2)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(subject, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2)
-                        .addGap(8, 8, 8)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkAll)
-                .addContainerGap())
-        );
-
-        jButton1.setText("Exit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Cancel");
+        jButton2.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Discard Email");
+        jButton2.setBorder(null);
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(540, 360, 90, 17);
 
+        send.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        send.setForeground(new java.awt.Color(255, 255, 255));
         send.setText("Send");
+        send.setBorder(null);
+        send.setBorderPainted(false);
+        send.setContentAreaFilled(false);
         send.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendActionPerformed(evt);
             }
         });
+        getContentPane().add(send);
+        send.setBounds(540, 320, 90, 30);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(146, 412, Short.MAX_VALUE)
-                        .addComponent(send)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
-                .addContainerGap())
-        );
+        jLabel4.setFont(new java.awt.Font("Open Sans", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Compose Message");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(10, 10, 230, 33);
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2, send});
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/SubmitButton.png"))); // NOI18N
+        jLabel6.setText("jLabel6");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(540, 320, 90, 30);
 
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(send))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/EmailScreen.jpg"))); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 0, 650, 420);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -225,15 +221,19 @@ public class EmailScreen extends javax.swing.JFrame {
                 tempTo.add((String)table.getValueAt(i, 1));
             }
         }
+        if(!tempTo.isEmpty()){
         String [] to = tempTo.toArray(new String[tempTo.size()]);
                 
         try {
             LoginScreen.email.sendEmail(to, LoginScreen.currentUser.getEmail(), subject.getText(), body.getText());
-            System.out.println("Sent successfully");
+            new ErrorPanel("Sent Successfully", true).setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(EmailScreen.class.getName()).log(Level.SEVERE, null, ex);
         } catch (MessagingException ex) {
             Logger.getLogger(EmailScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }else{
+            new ErrorPanel("You must have at least one recipient selected!").setVisible(true);
         }
 // String[] to = {"emailerTreeMailer@gmail.com"};
         //SendEmail.SendMessage(Login_DEPRECIATED.getInstance(), to, subject.getText(), body.getText());
@@ -254,11 +254,12 @@ public class EmailScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea body;
     private javax.swing.JCheckBox checkAll;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton send;

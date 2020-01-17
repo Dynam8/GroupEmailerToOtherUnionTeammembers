@@ -14,9 +14,17 @@ public class ErrorPanel extends javax.swing.JFrame {
     /**
      * Creates new form ErrorPanel
      */
-    public ErrorPanel(String errorTxt) {       
+    public ErrorPanel(String errorTxt) {
         initComponents();
-        errorMessage.setText(errorTxt);
+        errorMessage.setText("<html>" + errorTxt + "</html>");
+        infoImage.setVisible(false);
+    }
+
+    public ErrorPanel(String errorTxt, boolean info) {
+        initComponents();
+
+        errorMessage.setText("<html>" + errorTxt + "</html>");
+        infoImage.setVisible(true);
 
     }
 
@@ -30,39 +38,46 @@ public class ErrorPanel extends javax.swing.JFrame {
     private void initComponents() {
 
         errorMessage = new javax.swing.JLabel();
+        infoImage = new javax.swing.JLabel();
+        errorImage = new javax.swing.JLabel();
         closeButton = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(370, 350));
+        setResizable(false);
+        setSize(new java.awt.Dimension(370, 350));
+        setType(java.awt.Window.Type.POPUP);
+        getContentPane().setLayout(null);
 
+        errorMessage.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        errorMessage.setForeground(new java.awt.Color(255, 255, 255));
+        errorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         errorMessage.setText("ErrorText");
+        errorMessage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        errorMessage.setAlignmentX(0.5F);
+        errorMessage.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(errorMessage);
+        errorMessage.setBounds(90, 160, 200, 90);
 
-        closeButton.setText("Return");
+        infoImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/InfoPanel.jpg"))); // NOI18N
+        infoImage.setOpaque(true);
+        getContentPane().add(infoImage);
+        infoImage.setBounds(0, 0, 370, 320);
+
+        errorImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Error.jpg"))); // NOI18N
+        getContentPane().add(errorImage);
+        errorImage.setBounds(0, 0, 370, 320);
+
+        closeButton.setBorderPainted(false);
+        closeButton.setContentAreaFilled(false);
+        closeButton.setFocusPainted(false);
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(closeButton)
-                    .addComponent(errorMessage))
-                .addContainerGap(71, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(errorMessage)
-                .addGap(38, 38, 38)
-                .addComponent(closeButton)
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
+        getContentPane().add(closeButton);
+        closeButton.setBounds(160, 250, 50, 50);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -78,6 +93,8 @@ public class ErrorPanel extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
+    private javax.swing.JLabel errorImage;
     private javax.swing.JLabel errorMessage;
+    private javax.swing.JLabel infoImage;
     // End of variables declaration//GEN-END:variables
 }

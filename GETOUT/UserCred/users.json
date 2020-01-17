@@ -30,12 +30,6 @@
     "name": "bob"
   },
   {
-    "email": "5@5.com",
-    "password": "dsgs",
-    "permission": 1,
-    "name": "bob"
-  },
-  {
     "email": "6@6.com",
     "password": "dsgs",
     "permission": 1,
@@ -58,5 +52,11 @@
     "password": "1",
     "permission": 1,
     "name": "Nicholai"
+  },
+  {
+    "email": "sroge2@ocdsb.ca",
+    "password": "1",
+    "permission": 4,
+    "name": "Sam"
   }
 ]
