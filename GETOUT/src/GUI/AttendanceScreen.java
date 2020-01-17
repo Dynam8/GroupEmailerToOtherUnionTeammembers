@@ -228,8 +228,28 @@ public class AttendanceScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void eMailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eMailButtonActionPerformed
-        String[] absent = Arrays.stream(data).filter(i -> i[1].equals(false)).map(o -> o[2]).toArray(String[]::new);
-
+        String[] absent = Arrays.stream(data)
+                .filter(i -> i[1].equals(false))
+                .map(o -> o[2])
+                .toArray(String[]::new);
+        try {
+            LoginScreen.email.sendEmail(absent, LoginScreen.currentUser.getEmail(),
+                    "You missed a Student Council Meeting",
+                    "Hello, \n You are receiving this email because you missed a student council meeting.\n"
+                    + "Make sure you show up to the next one!"
+            );
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ErrorPanel("Successfully sent email.").setVisible(true);
+                }
+            });
+        } catch (Exception e) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ErrorPanel("Failed to send email.").setVisible(true);
+                }
+            });
+        }
     }//GEN-LAST:event_eMailButtonActionPerformed
 
     /**
