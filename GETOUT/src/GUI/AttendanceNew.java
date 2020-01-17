@@ -24,10 +24,11 @@ public class AttendanceNew extends javax.swing.JFrame {
     Object[][] data;
 
     public AttendanceNew() {
-        data = new Object[GETOUT.users.size()][2];
+        data = new Object[GETOUT.users.size()][3];
         for (int i = 0; i < GETOUT.users.size(); i++) {
             data[i][0] = GETOUT.users.get(i).getName();
             data[i][1] = false;
+            data[i][2] = GETOUT.users.get(i).getEmail();
         }
         initComponents();
     }
@@ -72,11 +73,11 @@ public class AttendanceNew extends javax.swing.JFrame {
         table.setModel(new javax.swing.table.DefaultTableModel(
             data,
             new String [] {
-                "Name", "Present"
+                "Name", "Present", "email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -212,7 +213,7 @@ public class AttendanceNew extends javax.swing.JFrame {
         UserAttendance user;
 
         for (int i = 0; i < data.length; i++) {
-            user = new UserAttendance((String) table.getValueAt(i, 0), (boolean) table.getValueAt(i, 1));
+            user = new UserAttendance((String) table.getValueAt(i, 0), (boolean) table.getValueAt(i, 1), (String) table.getValueAt(i, 2));
             userList.add(user);
         }
         try {

@@ -10,6 +10,7 @@ import Backend.ParseJson;
 import Database.UserAttendance;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -83,12 +84,27 @@ public class AttendanceScreen extends javax.swing.JFrame {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             data,
             new String [] {
-                "Name", "Present"
+                "Name", "Present", "email"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jTable1.setEnabled(false);
         jScrollPane2.setViewportView(jTable1);
 
         eMailButton.setText("Contact Missing");
+        eMailButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eMailButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,17 +171,26 @@ public class AttendanceScreen extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             ArrayList<UserAttendance> list = ParseJson.readFromFile("UserCred/Calendar/" + fileList[Sheets.getSelectedIndex()] + ".json", UserAttendance.class);
-            data = new Object[list.size()][2];
+            data = new Object[list.size()][3];
             for (int i = 0; i < list.size(); i++) {
                 data[i][0] = list.get(i).getName();
                 data[i][1] = list.get(i).getPresent();
+                data[i][2] = list.get(i).getEmail();
             }
             jTable1.setModel(new javax.swing.table.DefaultTableModel(
                     data,
                     new String[]{
-                        "Name", "Present"
+                        "Name", "Present", "Email"
                     }
-            ));
+            ) {
+                Class[] types = new Class[]{
+                    java.lang.String.class, java.lang.Boolean.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types[columnIndex];
+                }
+            });
 
             jScrollPane2.setViewportView(jTable1);
         } catch (Exception e) {
@@ -186,6 +211,31 @@ public class AttendanceScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void eMailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eMailButtonActionPerformed
+        String[] absent = Arrays.stream(data)
+                .filter(i -> i[1].equals(false))
+                .map(o -> o[2])
+                .toArray(String[]::new);
+        try {
+            LoginScreen.email.sendEmail(absent, LoginScreen.currentUser.getEmail(),
+                    "You missed a Student Council Meeting",
+                    "Hello, \n You are receiving this email because you missed a student council meeting.\n"
+                    + "Make sure you show up to the next one!"
+            );
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ErrorPanel("Successfully sent email.").setVisible(true);
+                }
+            });
+        } catch (Exception e) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new ErrorPanel("Failed to send email.").setVisible(true);
+                }
+            });
+        }
+    }//GEN-LAST:event_eMailButtonActionPerformed
+  
     /**
      * @param args the command line arguments
      */
