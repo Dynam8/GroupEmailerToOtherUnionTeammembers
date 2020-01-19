@@ -1,17 +1,14 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Main File to run program
  */
 package getout;
 
-import Backend.Login_DEPRECIATED;
 import Backend.ParseJson;
-import Backend.SendEmail;
 import Backend.User;
 import GUI.LoginScreen;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +25,7 @@ public class GETOUT {
     public final static String USERS_FILE_PATH = "UserCred/users.json";
 
     public static void main(String[] args) throws IOException {
+        //gets a list of users from file
         users = ParseJson.readFromFile("UserCred/users.json", User.class);
 
         java.awt.EventQueue.invokeLater(() -> {

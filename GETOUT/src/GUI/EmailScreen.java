@@ -1,16 +1,14 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Send Emails gui.
+ * One can select multiple users to send the same email to.
  */
 package GUI;
 
-import Backend.Login_DEPRECIATED;
-import Backend.SendEmail;
 import Backend.User;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -18,7 +16,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
- * @author S331471193
+ * @author Fred Chen, Sam Rodgers
  */
 public class EmailScreen extends javax.swing.JFrame {
 
@@ -27,6 +25,9 @@ public class EmailScreen extends javax.swing.JFrame {
      *
      * @param users
      */
+    
+    //Refer to DeleteUsers to see an explanation on how the jTable is filled with information
+    //This table is exactly the same as it, with the exception of no emails being ommitted.
     Object[][] data;
 
     public EmailScreen(ArrayList<User> users) {
@@ -38,6 +39,8 @@ public class EmailScreen extends javax.swing.JFrame {
             data[i][2] = false;
         }
         initComponents();
+        
+        //*********UI and design***************
         table.setOpaque(false);
         ((DefaultTableCellRenderer) table.getDefaultRenderer(Object.class)).setOpaque(false);
         jScrollPane1.setOpaque(false);
@@ -46,6 +49,7 @@ public class EmailScreen extends javax.swing.JFrame {
         table.getTableHeader().setOpaque(false);
         jScrollPane2.setOpaque(false);
         jScrollPane2.getViewport().setOpaque(false);
+        //**********************************************
     }
 
     /**
@@ -108,11 +112,6 @@ public class EmailScreen extends javax.swing.JFrame {
         table.setSelectionBackground(new java.awt.Color(153, 204, 255));
         table.setSelectionForeground(new java.awt.Color(0, 0, 0));
         table.getTableHeader().setReorderingAllowed(false);
-        table.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tableKeyPressed(evt);
-            }
-        });
         jScrollPane2.setViewportView(table);
 
         getContentPane().add(jScrollPane2);
@@ -216,6 +215,7 @@ public class EmailScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Email is not sent
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -224,7 +224,10 @@ public class EmailScreen extends javax.swing.JFrame {
         });
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
-//row, column
+
+    
+    //Takes all the checked users and sends an email to them
+    //With the specified body and subject
     private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
         ArrayList<String> tempTo = new ArrayList<>();
         for(int i = 0; i<table.getModel().getRowCount(); i++){
@@ -235,31 +238,25 @@ public class EmailScreen extends javax.swing.JFrame {
         if(!tempTo.isEmpty()){
         String [] to = tempTo.toArray(new String[tempTo.size()]);
                 
-        try {
+        try {//Send email section
             LoginScreen.email.sendEmail(to, LoginScreen.currentUser.getEmail(), subject.getText(), body.getText());
             new ErrorPanel("Sent Successfully", true).setVisible(true);
-        } catch (IOException ex) {
-            Logger.getLogger(EmailScreen.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (MessagingException ex) {
+        } catch (IOException | MessagingException ex) {
             Logger.getLogger(EmailScreen.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }else{
+        }else{//One cannot send an email to no one
             new ErrorPanel("You must have at least one recipient selected!").setVisible(true);
         }
-// String[] to = {"emailerTreeMailer@gmail.com"};
-        //SendEmail.SendMessage(Login_DEPRECIATED.getInstance(), to, subject.getText(), body.getText());
+
     }//GEN-LAST:event_sendActionPerformed
 
+    //Check all checkbox will select all users when checked
     private void checkAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAllActionPerformed
         for (int i = 0; i < data.length; i++) {
             table.setValueAt(true, i, 2);
         }
         checkAll.setSelected(false);
     }//GEN-LAST:event_checkAllActionPerformed
-
-    private void tableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tableKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tableKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

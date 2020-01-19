@@ -1,7 +1,8 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Main navigation page for the program. 
+ * 
  */
 package GUI;
 
@@ -18,20 +19,26 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Emperor Master Chen
+ * @author Fred Chen, Sam Rodgers
  */
 public class MenuScreen extends javax.swing.JFrame {
-
 
     /**
      * Creates new form MenuScreen
      */
     public MenuScreen() {
+
         initComponents();
+
+        //***Design UI
         jLabel1.setVisible(false);
         jLabel2.setVisible(false);
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
+        //*****
+
+        //If the user's permission is less than 2, then the admin and attendance 
+        //buttons are disabled
         if (LoginScreen.currentUser.getPermission() < 2) {
             jLabel1.setVisible(true);
             jLabel2.setVisible(true);
@@ -42,6 +49,10 @@ public class MenuScreen extends javax.swing.JFrame {
         }
 
     }
+
+    //Booleans for determing if the dropdown menu has been clicked
+    //There is a built-in boolean for this, however
+    //Due to the nature of the UI, we were forced to have separate, independant variables
     private boolean isEmailOpen, isAttendanceOpen, isAdminOpen, isUserOpen = true;
 
     /**
@@ -213,13 +224,19 @@ public class MenuScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private ArrayList<User> filterUsers(int permissionLevel) {
+
+    //Filters the users based on their permission level; 
+    //used when sending emails based on permission/catagory
+    private ArrayList<User> filterUsers(int permissionLevel) {
+
         return (ArrayList<User>) GETOUT.users.stream()
                 .filter(user -> user.getPermission() == permissionLevel)
                 .collect(Collectors.toList());
 
     }
 
+    //Based on which dropDown menu item in the Email button is pressed, 
+    //the program filters appropriately for which users to send emails to
     private void EmailComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailComboBoxActionPerformed
 
         switch (EmailComboBox.getSelectedItem().toString()) {
@@ -268,6 +285,8 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         }
     }//GEN-LAST:event_EmailComboBoxActionPerformed
 
+    
+    //Same situation as the emailComboBox function
     private void AttendanceComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AttendanceComboBoxActionPerformed
         switch (AttendanceComboBox.getSelectedItem().toString()) {
             case ("Create new attendance"):
@@ -289,6 +308,7 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         }
     }//GEN-LAST:event_AttendanceComboBoxActionPerformed
 
+    //Same situation as the emailComboBox function
     private void AdminComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminComboBoxActionPerformed
         switch (AdminComboBox.getSelectedItem().toString()) {
             case ("Create new user"):
@@ -311,28 +331,32 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         }
     }//GEN-LAST:event_AdminComboBoxActionPerformed
 
+    //Same situation as the emailComboBox function
     private void UserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserComboBoxActionPerformed
+        //There are 2 options: Remember me and don't remember me.
+        //Don't remember me deletes the email tokens, meaning the user has to
+        //go through the verification process when logging in again
         switch (UserComboBox.getSelectedItem().toString()) {
             case ("Log out and remember me"):
-
                 dispose();
                 new LoginScreen().setVisible(true);
                 break;
 
             case ("Log out and don't remember me"): {
 
+                //If the user is using the admin account, there is a safeguard to prevent it
+                //from being deleted
                 if (LoginScreen.currentUser.getEmail().equals(GETOUT.ADMIN_EMAIL)) {
-
                     new ErrorPanel("You can't delete the admin account!").setVisible(true);
                     break;
-
                 } else {
 
+                    //finds and deletes the token
                     try {
                         Files.deleteIfExists(Paths.get("UserCred/tokens/" + LoginScreen.currentUser.getEmail().substring(0, LoginScreen.currentUser.getEmail().indexOf('@'))));
 
                     } catch (IOException ex) {
-                        new ErrorPanel("The token file has been deleted. Restart the program and log in again.").setVisible(true);
+                        new ErrorPanel("The token file has already been deleted. Restart the program and log in again.").setVisible(true);
                         Logger.getLogger(MenuScreen.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     new LoginScreen().setVisible(true);
@@ -346,8 +370,10 @@ private ArrayList<User> filterUsers(int permissionLevel) {
 
     }//GEN-LAST:event_UserComboBoxActionPerformed
 
+    //The following Buttonfor_CHOICE_ComboActionPerformed functions do:
+    //When the user clicks the button, the combo box appears.
+    //When the user clicks elsewhere, the combo box disappears.
     private void ButtonforEmailComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforEmailComboActionPerformed
-
         if (!isEmailOpen) {
             EmailComboBox.showPopup();
             isEmailOpen = true;
@@ -355,7 +381,6 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         } else {
             isEmailOpen = false;
         }
-
 
     }//GEN-LAST:event_ButtonforEmailComboActionPerformed
 
@@ -392,6 +417,10 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         }
     }//GEN-LAST:event_ButtonforUserComboActionPerformed
 
+    //The following entered methods help the above methods in making sure that
+    //The combo boxes only open when the button is pressed, and close when the mouse
+    //is elsewhere.
+    
     private void ButtonforEmailComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforEmailComboMouseEntered
         isEmailOpen = EmailComboBox.isPopupVisible();
     }//GEN-LAST:event_ButtonforEmailComboMouseEntered

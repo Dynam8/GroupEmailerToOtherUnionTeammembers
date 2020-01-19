@@ -1,13 +1,13 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Displays errors and information
  */
 package GUI;
 
 /**
  *
- * @author Emperor Master Chen
+ * @author Fred Chen
  */
 public class ErrorPanel extends javax.swing.JDialog {
 
@@ -15,6 +15,9 @@ public class ErrorPanel extends javax.swing.JDialog {
      * Creates new form ErrorPanel1
      */
     
+    //2 Constructors: without the boolean, an error image displays
+    //with the overloaded boolean, an information image displays
+    //This is to reduce code and have one class perform multiple functions
     public ErrorPanel(String errorTxt) {
         super(new javax.swing.JFrame(), true);
        

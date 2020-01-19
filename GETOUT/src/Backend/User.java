@@ -1,19 +1,20 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Simple user object where their program credentials are stored
+ * NOT to be confused with gmail credentials, which are stored in token files
  */
 package Backend;
 
 /**
  *
- * @author Emperor Master Chen
+ * @author Fred Chen
  */
+
 public class User {
-     private String email;
-    private String password;
-    private int permission;
-    private String name;
+     private final String email;
+    private final String password;//Program password, NOT gmail password! phew...
+    private final int permission;
+    private final String name;
     
     public User(String name, String email, String password,  int permission){
         this.email = email;
