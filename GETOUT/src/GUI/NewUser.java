@@ -89,7 +89,7 @@ public class NewUser extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(5, 150, 170, 21);
+        jLabel2.setBounds(5, 150, 170, 23);
 
         jLabel3.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -107,7 +107,7 @@ public class NewUser extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(5, 296, 190, 21);
+        jLabel5.setBounds(5, 296, 190, 23);
 
         jLabel6.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -132,7 +132,7 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(email);
-        email.setBounds(150, 205, 170, 15);
+        email.setBounds(150, 205, 170, 16);
 
         permissionLevel.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
         permissionLevel.setForeground(new java.awt.Color(255, 255, 255));
@@ -146,7 +146,7 @@ public class NewUser extends javax.swing.JFrame {
         password.setBorder(null);
         password.setOpaque(false);
         getContentPane().add(password);
-        password.setBounds(150, 303, 170, 15);
+        password.setBounds(150, 303, 170, 16);
 
         confirmPassword.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
         confirmPassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -158,7 +158,7 @@ public class NewUser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(confirmPassword);
-        confirmPassword.setBounds(150, 352, 170, 15);
+        confirmPassword.setBounds(150, 352, 170, 16);
 
         submit.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
         submit.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,7 +201,7 @@ public class NewUser extends javax.swing.JFrame {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/NewUserBackground1.jpg"))); // NOI18N
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(0, 0, 0, 0);
+        jLabel7.setBounds(0, 0, 330, 543);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

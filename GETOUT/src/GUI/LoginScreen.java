@@ -6,33 +6,19 @@
 package GUI;
 
 import Backend.Email;
-import Backend.ParseJson;
 import Backend.User;
 
 import getout.GETOUT;
 
 import java.io.IOException;
+
 import java.security.GeneralSecurityException;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.lang.Runnable;
-
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import java.net.Socket;
-import java.net.ServerSocket;
 
 /**
  *
@@ -40,18 +26,12 @@ import java.net.ServerSocket;
  */
 public class LoginScreen extends javax.swing.JFrame {
 
-    //private final String PATH = "UserCred/users.json";
-    /**
-     * Creates new form MenuScreen
-     */
     public static User currentUser;
     public static Email email;
 
     public LoginScreen() {
         initComponents();
-        //Login.setOpaque(false);
-      //  Login.setContentAreaFilled(false);
-        //Login.setBorderPainted(false);
+
     }
 
     /**
@@ -72,9 +52,10 @@ public class LoginScreen extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(450, 570));
-        setPreferredSize(new java.awt.Dimension(450, 595));
+        setMinimumSize(new java.awt.Dimension(450, 600));
+        setPreferredSize(new java.awt.Dimension(450, 570));
         setResizable(false);
+        setSize(new java.awt.Dimension(450, 570));
         getContentPane().setLayout(null);
 
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -88,7 +69,7 @@ public class LoginScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(48, 548, 130, 16);
+        jButton2.setBounds(48, 548, 130, 15);
 
         jButton1.setBorder(null);
         jButton1.setBorderPainted(false);
@@ -102,14 +83,18 @@ public class LoginScreen extends javax.swing.JFrame {
         jButton1.setBounds(50, 520, 170, 30);
 
         exitButton.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/SubmitButton.png"))); // NOI18N
         exitButton.setText("Exit");
+        exitButton.setToolTipText("");
+        exitButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
             }
         });
         getContentPane().add(exitButton);
-        exitButton.setBounds(371, 520, 60, 32);
+        exitButton.setBounds(371, 520, 60, 30);
 
         Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LoginButtonUnpressed.png"))); // NOI18N
         Login.setToolTipText("");
@@ -308,7 +293,7 @@ public class LoginScreen extends javax.swing.JFrame {
             //  }
             else {
                 //timer.stop();
-                System.out.println("Not the correct password!");
+                new ErrorPanel("Incorrect Password!").setVisible(true);
             }
         }
         //  } catch (IOException ex) {

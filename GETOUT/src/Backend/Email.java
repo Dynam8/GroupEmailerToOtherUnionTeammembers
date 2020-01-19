@@ -154,7 +154,11 @@ public class Email {
             String subject,
             String bodyText) throws IOException, MessagingException {
         Message message = createMessageWithEmail(createEmail(to, from, subject, bodyText));
-        message = service.users().messages().send("me", message).execute();
+        message = service
+                .users()
+                .messages()
+                .send("me", message)
+                .execute();
 
         System.out.println("Message id: " + message.getId());
         System.out.println(message.toPrettyString());

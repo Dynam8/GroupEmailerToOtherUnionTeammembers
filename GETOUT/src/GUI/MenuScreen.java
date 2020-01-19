@@ -22,8 +22,9 @@ import java.util.logging.Logger;
  */
 public class MenuScreen extends javax.swing.JFrame {
 
+
     /**
-     * Creates new form MenuScreen2
+     * Creates new form MenuScreen
      */
     public MenuScreen() {
         initComponents();
@@ -41,7 +42,7 @@ public class MenuScreen extends javax.swing.JFrame {
         }
 
     }
-    boolean hasClickedEmail, hasClickedAttendance, hasClickedAdmin, hasClickedUser = false;
+    private boolean isEmailOpen, isAttendanceOpen, isAdminOpen, isUserOpen = true;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,7 +76,7 @@ public class MenuScreen extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("You are not authorized to use this function!");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(70, 320, 250, 16);
+        jLabel4.setBounds(70, 320, 250, 14);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Disabled.png"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -85,7 +86,7 @@ public class MenuScreen extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("You are not authorized to use this function!");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(70, 230, 250, 16);
+        jLabel2.setBounds(70, 230, 250, 14);
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Disabled.png"))); // NOI18N
@@ -111,11 +112,6 @@ public class MenuScreen extends javax.swing.JFrame {
         EmailComboBox.setPreferredSize(new java.awt.Dimension(293, 0));
         EmailComboBox.setRequestFocusEnabled(false);
         EmailComboBox.setVerifyInputWhenFocusTarget(false);
-        EmailComboBox.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                EmailComboBoxMouseEntered(evt);
-            }
-        });
         EmailComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmailComboBoxActionPerformed(evt);
@@ -126,6 +122,11 @@ public class MenuScreen extends javax.swing.JFrame {
 
         ButtonforEmailCombo.setBorderPainted(false);
         ButtonforEmailCombo.setContentAreaFilled(false);
+        ButtonforEmailCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonforEmailComboMouseEntered(evt);
+            }
+        });
         ButtonforEmailCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforEmailComboActionPerformed(evt);
@@ -146,6 +147,11 @@ public class MenuScreen extends javax.swing.JFrame {
         ButtonforAttendanceCombo.setText("jButton1");
         ButtonforAttendanceCombo.setBorderPainted(false);
         ButtonforAttendanceCombo.setContentAreaFilled(false);
+        ButtonforAttendanceCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonforAttendanceComboMouseEntered(evt);
+            }
+        });
         ButtonforAttendanceCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforAttendanceComboActionPerformed(evt);
@@ -166,6 +172,11 @@ public class MenuScreen extends javax.swing.JFrame {
         ButtonforAdminCombo.setText("jButton1");
         ButtonforAdminCombo.setBorderPainted(false);
         ButtonforAdminCombo.setContentAreaFilled(false);
+        ButtonforAdminCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonforAdminComboMouseEntered(evt);
+            }
+        });
         ButtonforAdminCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforAdminComboActionPerformed(evt);
@@ -187,6 +198,11 @@ public class MenuScreen extends javax.swing.JFrame {
         ButtonforUserCombo.setText("jButton1");
         ButtonforUserCombo.setBorderPainted(false);
         ButtonforUserCombo.setContentAreaFilled(false);
+        ButtonforUserCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonforUserComboMouseEntered(evt);
+            }
+        });
         ButtonforUserCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforUserComboActionPerformed(evt);
@@ -299,108 +315,102 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         switch (UserComboBox.getSelectedItem().toString()) {
             case ("Log out and remember me"):
 
-                this.dispose();
-                break;
-            case ("Log out and don't remember me"): {
-                try {
-                    Files.deleteIfExists(Paths.get("UserCred/tokens/" + LoginScreen.currentUser.getEmail().substring(0, LoginScreen.currentUser.getEmail().indexOf('@'))));
-                } catch (IOException ex) {
-                    Logger.getLogger(MenuScreen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                this.dispose();
+                dispose();
+                new LoginScreen().setVisible(true);
                 break;
 
+            case ("Log out and don't remember me"): {
+
+                if (LoginScreen.currentUser.getEmail().equals(GETOUT.ADMIN_EMAIL)) {
+
+                    new ErrorPanel("You can't delete the admin account!").setVisible(true);
+                    break;
+
+                } else {
+
+                    try {
+                        Files.deleteIfExists(Paths.get("UserCred/tokens/" + LoginScreen.currentUser.getEmail().substring(0, LoginScreen.currentUser.getEmail().indexOf('@'))));
+
+                    } catch (IOException ex) {
+                        new ErrorPanel("The token file has been deleted. Restart the program and log in again.").setVisible(true);
+                        Logger.getLogger(MenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    new LoginScreen().setVisible(true);
+                    dispose();
+                    break;
+
+                }
             }
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginScreen().setVisible(true);
-            }
-        });
-        this.dispose();
+
 
     }//GEN-LAST:event_UserComboBoxActionPerformed
 
-    private void EmailComboBoxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailComboBoxMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmailComboBoxMouseEntered
-
     private void ButtonforEmailComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforEmailComboActionPerformed
-        if (hasClickedEmail) {
-            EmailComboBox.hidePopup();
-            hasClickedEmail = false;
-        } else {
+
+        if (!isEmailOpen) {
             EmailComboBox.showPopup();
-            hasClickedEmail = true;
+            isEmailOpen = true;
+
+        } else {
+            isEmailOpen = false;
         }
+
+
     }//GEN-LAST:event_ButtonforEmailComboActionPerformed
 
     private void ButtonforAttendanceComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforAttendanceComboActionPerformed
-        if (hasClickedAttendance) {
-            AttendanceComboBox.hidePopup();
-            hasClickedAttendance = false;
-        } else {
+
+        if (!isAttendanceOpen) {
             AttendanceComboBox.showPopup();
-            hasClickedAttendance = true;
+            isAttendanceOpen = true;
+
+        } else {
+            isAttendanceOpen = false;
         }
     }//GEN-LAST:event_ButtonforAttendanceComboActionPerformed
 
     private void ButtonforAdminComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforAdminComboActionPerformed
-        if (hasClickedAdmin) {
-            AdminComboBox.hidePopup();
-            hasClickedAdmin = false;
-        } else {
+
+        if (!isAdminOpen) {
             AdminComboBox.showPopup();
-            hasClickedAdmin = true;
+            isAdminOpen = true;
+
+        } else {
+            isAdminOpen = false;
         }
     }//GEN-LAST:event_ButtonforAdminComboActionPerformed
 
     private void ButtonforUserComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforUserComboActionPerformed
 
-        if (hasClickedUser) {
-            UserComboBox.hidePopup();
-            hasClickedUser = false;
-        } else {
+        if (!isUserOpen) {
             UserComboBox.showPopup();
-            hasClickedUser = true;
+            isUserOpen = true;
+
+        } else {
+            isUserOpen = false;
         }
     }//GEN-LAST:event_ButtonforUserComboActionPerformed
+
+    private void ButtonforEmailComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforEmailComboMouseEntered
+        isEmailOpen = EmailComboBox.isPopupVisible();
+    }//GEN-LAST:event_ButtonforEmailComboMouseEntered
+
+    private void ButtonforAttendanceComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforAttendanceComboMouseEntered
+        isAttendanceOpen = AttendanceComboBox.isPopupVisible();
+    }//GEN-LAST:event_ButtonforAttendanceComboMouseEntered
+
+    private void ButtonforAdminComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforAdminComboMouseEntered
+        isAdminOpen = AdminComboBox.isPopupVisible();
+    }//GEN-LAST:event_ButtonforAdminComboMouseEntered
+
+    private void ButtonforUserComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforUserComboMouseEntered
+        isUserOpen = UserComboBox.isPopupVisible();
+    }//GEN-LAST:event_ButtonforUserComboMouseEntered
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuScreen().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> AdminComboBox;

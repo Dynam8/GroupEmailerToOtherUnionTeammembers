@@ -122,7 +122,7 @@ public class EmailScreen extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Subject:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(330, 60, 50, 16);
+        jLabel1.setBounds(330, 60, 50, 17);
 
         subject.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         subject.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,13 +130,13 @@ public class EmailScreen extends javax.swing.JFrame {
         subject.setCaretColor(new java.awt.Color(255, 255, 255));
         subject.setOpaque(false);
         getContentPane().add(subject);
-        subject.setBounds(390, 60, 149, 18);
+        subject.setBounds(390, 60, 149, 19);
 
         jLabel2.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Body:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(338, 100, 40, 16);
+        jLabel2.setBounds(338, 100, 40, 17);
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
@@ -167,7 +167,7 @@ public class EmailScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(checkAll);
-        checkAll.setBounds(209, 320, 100, 24);
+        checkAll.setBounds(209, 320, 100, 23);
 
         jButton2.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,7 +182,7 @@ public class EmailScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(540, 360, 90, 16);
+        jButton2.setBounds(540, 360, 90, 17);
 
         send.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         send.setForeground(new java.awt.Color(255, 255, 255));
@@ -202,7 +202,7 @@ public class EmailScreen extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Compose Message");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 10, 230, 32);
+        jLabel4.setBounds(10, 10, 230, 33);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/SubmitButton.png"))); // NOI18N
         jLabel6.setText("jLabel6");
