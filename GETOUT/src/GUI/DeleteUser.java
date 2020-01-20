@@ -26,11 +26,11 @@ public class DeleteUser extends javax.swing.JFrame {
         //The table takes a 2 dimensional array as input to display
         //Since one cannot delete oneself or the admin account, this determines how many users there are other than those two
         int accNum = LoginScreen.currentUser.getEmail().equals(GETOUT.ADMIN_EMAIL) ? 1 : 2;
-        
+
         int counter = 0;
-        
+
         data = new Object[GETOUT.users.size() - accNum][3];
-        
+
         //For each user in the list users, we assign the email, name, to a spot on the data[][] array to be displayed
         //This will skip over the admin and current users to make sure that they can't be deleted
         for (int i = 0; i < GETOUT.users.size() - accNum; i++) {
@@ -50,7 +50,7 @@ public class DeleteUser extends javax.swing.JFrame {
 
         }
         initComponents();
-        
+
         //***********Table UI formatting******************
         table.setOpaque(false);
         ((DefaultTableCellRenderer) table.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -60,10 +60,8 @@ public class DeleteUser extends javax.swing.JFrame {
         table.getTableHeader().setOpaque(false);
         //************************************************
 
-
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,7 +82,7 @@ public class DeleteUser extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Delete Users");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(100, 50, 150, 33);
+        jLabel1.setBounds(100, 50, 150, 32);
 
         confirmDelete.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
         confirmDelete.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,7 +112,7 @@ public class DeleteUser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cancel);
-        cancel.setBounds(140, 450, 39, 17);
+        cancel.setBounds(140, 450, 39, 16);
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(null);
@@ -136,6 +134,16 @@ public class DeleteUser extends javax.swing.JFrame {
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int row, int col) {
+                switch (col) {
+                    case 0:
+                    case 1:
+                    return false;
+                    default:
+                    return true;
+                }
             }
         });
         table.setGridColor(new java.awt.Color(255, 255, 255));
@@ -162,29 +170,34 @@ public class DeleteUser extends javax.swing.JFrame {
 
     private void confirmDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmDeleteActionPerformed
 
+        int counter = 0;
         //Going through the table, it checks whether the checkbox beside each user is checked.
         //If so, then the user is removed from the master list.
         for (int i = 0; i < table.getModel().getRowCount(); i++) {
             if ((boolean) table.getValueAt(i, 2)) {
                 final String TEMP_EMAIL = (String) table.getValueAt(i, 1);
                 GETOUT.users.removeIf((User u) -> u.getEmail().equals(TEMP_EMAIL));
-                
+                counter++;//counter counts if a user has been deleted
             }
         }
-        //The updated list is then saved to a file.
-        ParseJson.writeToFile(GETOUT.users, GETOUT.USERS_FILE_PATH);
-        
-        java.awt.EventQueue.invokeLater(() -> {
-            new ErrorPanel("User(s) Deleted Successfully", true).setVisible(true);
-        });
-        dispose();
-        
-        new MenuScreen().setVisible(true);       
-        
-        
+
+        if (counter != 0) {
+            //The updated list is then saved to a file.
+            ParseJson.writeToFile(GETOUT.users, GETOUT.USERS_FILE_PATH);
+
+            java.awt.EventQueue.invokeLater(() -> {
+                new ErrorPanel("User(s) Deleted Successfully", true).setVisible(true);
+            });
+            dispose();
+
+            new MenuScreen().setVisible(true);
+        } else {//opens error panel if no users were deleted
+            new ErrorPanel("No users were selected!").setVisible(true);
+        }
+
+
     }//GEN-LAST:event_confirmDeleteActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
