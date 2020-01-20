@@ -102,6 +102,15 @@ public class AttendanceScreen extends javax.swing.JFrame {
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+            public boolean isCellEditable(int row, int col) {
+                switch (col) {
+                    case 0:
+                    case 1:
+                    return false;
+                    default:
+                    return true;
+                }
+            }
         });
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTable1.setEnabled(false);
