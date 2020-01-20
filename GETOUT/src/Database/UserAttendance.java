@@ -1,13 +1,13 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Simple user object to store user in attendance sheets.
+ * Is called to send emails to missing people and keep track of who is present
  */
 package Database;
 
 /**
  *
- * @author S346795925
+ * @author Ashwin Boni Bangari
  */
 public class UserAttendance {
     private String name;
