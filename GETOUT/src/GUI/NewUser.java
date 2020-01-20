@@ -175,7 +175,7 @@ public class NewUser extends javax.swing.JFrame {
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/NewUserBackground1.jpg"))); // NOI18N
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(0, 0, 0, 0);
+        jLabel7.setBounds(0, 0, 330, 543);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
