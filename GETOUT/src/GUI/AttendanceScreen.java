@@ -6,7 +6,6 @@
  */
 package GUI;
 
-import getout.GETOUT;
 import Backend.ParseJson;
 import Database.UserAttendance;
 import java.io.File;
