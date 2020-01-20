@@ -1,8 +1,7 @@
 //2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * GUI page
+ * Used to create new attendance record
  */
 package GUI;
 
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import Database.UserAttendance;
 
 /**
- *
  * @authors Sam Rogers, Ashwin Boni Bangari
  */
 public class AttendanceNew extends javax.swing.JFrame {
@@ -97,6 +95,7 @@ public class AttendanceNew extends javax.swing.JFrame {
         }
 
     );
+    table.getTableHeader().setReorderingAllowed(false);
     attendanceView.setViewportView(table);
 
     checkAll.setText("Check All");
@@ -231,6 +230,7 @@ public class AttendanceNew extends javax.swing.JFrame {
             userList.add(user);
         }
         //Saves the list of users to a Json file
+        //First check if there is a date in the dateField
         try {
             String date = dateField.getText();
             if (date == null || date.equals("")) {
@@ -239,6 +239,7 @@ public class AttendanceNew extends javax.swing.JFrame {
                         new ErrorPanel("No date entered").setVisible(true);
                     }
                 });
+                //Check if the date entered is valid
             } else {
                 try {
                     int day, mon, yr, temp;
@@ -250,6 +251,7 @@ public class AttendanceNew extends javax.swing.JFrame {
                             + Integer.parseInt(Character.toString(date.charAt(1)));
                     mon = Integer.parseInt(Character.toString(date.charAt(3))) * 10
                             + Integer.parseInt(Character.toString(date.charAt(4)));
+                    //Write to a Json file
                     if (day < 32 && day > 0 && mon < 13 && mon > 0) {
                         ParseJson.writeToFile(userList, "UserCred/Calendar/" + date + ".json");
                         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -293,7 +295,7 @@ public class AttendanceNew extends javax.swing.JFrame {
         for (int i = 0; i < data.length; i++) {
             table.setValueAt(true, i, 1);
         }
-        checkAll.setSelected(false);        // TODO add your handling code here:
+        checkAll.setSelected(false);   
     }//GEN-LAST:event_checkAllActionPerformed
 
     private void dateFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateFieldActionPerformed

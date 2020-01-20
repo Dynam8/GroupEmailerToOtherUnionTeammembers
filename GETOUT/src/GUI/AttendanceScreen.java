@@ -1,7 +1,8 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * GUI page
+ * Used to view attendance records
+ * Cannot edit, sends emails to absent members
  */
 package GUI;
 
@@ -13,8 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
- * @author S331471193
+ * @author Ashwin Boni Bangari, Sam Rogers
  */
 public class AttendanceScreen extends javax.swing.JFrame {
 
@@ -22,17 +22,17 @@ public class AttendanceScreen extends javax.swing.JFrame {
      * Creates new form AttendanceScreen
      */
     String[] fileList, attList;
-    //ArrayList<String> attList = new ArrayList<>();
     Object[][] data;
 
+    //Populate file list with attendance records in database(Json files)
     public AttendanceScreen() {
-        try{
-        fileList = (new File("UserCred/Calendar")).list();
-        attList = fileList;
-        for (int i = 0; i < fileList.length; i++) {
-            attList[i] = (fileList[i].substring(0, fileList[i].lastIndexOf('.')));
-        }
-        }catch(Exception e){
+        try {
+            fileList = (new File("UserCred/Calendar")).list();
+            attList = fileList;
+            for (int i = 0; i < fileList.length; i++) {
+                attList[i] = (fileList[i].substring(0, fileList[i].lastIndexOf('.')));
+            }
+        } catch (Exception e) {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     new ErrorPanel("No attendance has been taken").setVisible(true);
@@ -53,12 +53,12 @@ public class AttendanceScreen extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        attendanceList = new javax.swing.JScrollPane();
         Sheets = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        attenedanceText = new javax.swing.JLabel();
+        updateButton = new javax.swing.JButton();
+        menuButton = new javax.swing.JButton();
+        attendanceViewer = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         eMailButton = new javax.swing.JButton();
 
@@ -71,21 +71,21 @@ public class AttendanceScreen extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(Sheets);
+        attendanceList.setViewportView(Sheets);
 
-        jLabel1.setText("View attendance for:");
+        attenedanceText.setText("View attendance for:");
 
-        jButton1.setText("Update");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                updateButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Menu");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        menuButton.setText("Menu");
+        menuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                menuButtonActionPerformed(evt);
             }
         });
 
@@ -114,7 +114,8 @@ public class AttendanceScreen extends javax.swing.JFrame {
         });
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTable1.setEnabled(false);
-        jScrollPane2.setViewportView(jTable1);
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        attendanceViewer.setViewportView(jTable1);
 
         eMailButton.setText("Contact Missing");
         eMailButton.addActionListener(new java.awt.event.ActionListener() {
@@ -131,21 +132,21 @@ public class AttendanceScreen extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(menuButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(eMailButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(updateButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(attenedanceText, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(attendanceList, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(attendanceViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, jButton2});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {menuButton, updateButton});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,14 +154,14 @@ public class AttendanceScreen extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(attenedanceText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(attendanceList, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(attendanceViewer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(updateButton)
+                    .addComponent(menuButton)
                     .addComponent(eMailButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -185,9 +186,13 @@ public class AttendanceScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        //Populate table with attendance records from
+        //a single file in database(Json files)
         try {
-            ArrayList<UserAttendance> list = ParseJson.readFromFile("UserCred/Calendar/" + fileList[Sheets.getSelectedIndex()] + ".json", UserAttendance.class);
+            ArrayList<UserAttendance> list = ParseJson.readFromFile("UserCred/Calendar/"
+                    + fileList[Sheets.getSelectedIndex()]
+                    + ".json", UserAttendance.class);
             data = new Object[list.size()][3];
             for (int i = 0; i < list.size(); i++) {
                 data[i][0] = list.get(i).getName();
@@ -207,9 +212,19 @@ public class AttendanceScreen extends javax.swing.JFrame {
                 public Class getColumnClass(int columnIndex) {
                     return types[columnIndex];
                 }
+
+                public boolean isCellEditable(int row, int col) {
+                    switch (col) {
+                        case 0:
+                        case 1:
+                            return false;
+                        default:
+                            return true;
+                    }
+                }
             });
 
-            jScrollPane2.setViewportView(jTable1);
+            attendanceViewer.setViewportView(jTable1);
         } catch (Exception e) {
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
@@ -217,24 +232,25 @@ public class AttendanceScreen extends javax.swing.JFrame {
                 }
             });
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_updateButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void menuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuButtonActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuScreen().setVisible(true);
             }
         });
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_menuButtonActionPerformed
 
     private void eMailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eMailButtonActionPerformed
         try {
-        String[] absent = Arrays.stream(data)
-                .filter(i -> i[1].equals(false))
-                .map(o -> o[2])
-                .toArray(String[]::new);
-        
+            //Find all that are absent and compile into a email list
+            String[] absent = Arrays.stream(data)
+                    .filter(i -> i[1].equals(false))
+                    .map(o -> o[2])
+                    .toArray(String[]::new);
+
             LoginScreen.email.sendEmail(absent, LoginScreen.currentUser.getEmail(),
                     "You missed a Student Council Meeting",
                     "Hello, \n You are receiving this email because you missed a student council meeting.\n"
@@ -253,7 +269,7 @@ public class AttendanceScreen extends javax.swing.JFrame {
             });
         }
     }//GEN-LAST:event_eMailButtonActionPerformed
-  
+
     /**
      * @param args the command line arguments
      */
@@ -291,13 +307,13 @@ public class AttendanceScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> Sheets;
+    private javax.swing.JScrollPane attendanceList;
+    private javax.swing.JScrollPane attendanceViewer;
+    private javax.swing.JLabel attenedanceText;
     private javax.swing.JButton eMailButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton menuButton;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }

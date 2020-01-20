@@ -6,7 +6,6 @@
 package Database;
 
 /**
- *
  * @author Ashwin Boni Bangari
  */
 public class UserAttendance {
