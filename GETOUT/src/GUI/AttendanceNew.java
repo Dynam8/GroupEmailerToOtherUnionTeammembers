@@ -6,8 +6,6 @@
 package GUI;
 
 import getout.GETOUT;
-import Backend.User;
-import java.util.ArrayList;
 import Backend.ParseJson;
 import java.util.ArrayList;
 import Database.UserAttendance;
