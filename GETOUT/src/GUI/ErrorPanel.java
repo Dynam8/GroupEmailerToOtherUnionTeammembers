@@ -1,26 +1,35 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Displays errors and information
  */
 package GUI;
 
 /**
  *
- * @author S332896109
+ * @author Fred Chen
  */
-public class ErrorPanel extends javax.swing.JFrame {
+public class ErrorPanel extends javax.swing.JDialog {
 
     /**
-     * Creates new form ErrorPanel
+     * Creates new form ErrorPanel1
      */
+    
+    //2 Constructors: without the boolean, an error image displays
+    //with the overloaded boolean, an information image displays
+    //This is to reduce code and have one class perform multiple functions
     public ErrorPanel(String errorTxt) {
+        super(new javax.swing.JFrame(), true);
+       
         initComponents();
         errorMessage.setText("<html>" + errorTxt + "</html>");
         infoImage.setVisible(false);
+        requestFocus();
     }
 
     public ErrorPanel(String errorTxt, boolean info) {
+        super(new javax.swing.JFrame(), true);
+    
         initComponents();
 
         errorMessage.setText("<html>" + errorTxt + "</html>");
@@ -44,6 +53,8 @@ public class ErrorPanel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(370, 350));
+        setModal(true);
+        setPreferredSize(new java.awt.Dimension(370, 350));
         setResizable(false);
         setSize(new java.awt.Dimension(370, 350));
         setType(java.awt.Window.Type.POPUP);
@@ -84,12 +95,13 @@ public class ErrorPanel extends javax.swing.JFrame {
 
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         dispose();
-// TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_closeButtonActionPerformed
 
     /**
      * @param args the command line arguments
      */
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;

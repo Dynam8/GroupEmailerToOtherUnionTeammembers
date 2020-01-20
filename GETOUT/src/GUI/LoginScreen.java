@@ -1,57 +1,36 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ *Login Screen of the program.
  */
 package GUI;
 
 import Backend.Email;
-import Backend.ParseJson;
 import Backend.User;
 
 import getout.GETOUT;
 
 import java.io.IOException;
+
 import java.security.GeneralSecurityException;
 
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.lang.Runnable;
-
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import java.net.Socket;
-import java.net.ServerSocket;
 
 /**
  *
- * @author S331471193
+ * @author Fred Chen, Sam Rodgers
  */
 public class LoginScreen extends javax.swing.JFrame {
 
-    //private final String PATH = "UserCred/users.json";
-    /**
-     * Creates new form MenuScreen
-     */
-    public static User currentUser;
-    public static Email email;
+    public static User currentUser;//These instances are used throughout the program
+    public static Email email;//     and represent the current user.
 
     public LoginScreen() {
         initComponents();
-        //Login.setOpaque(false);
-      //  Login.setContentAreaFilled(false);
-        //Login.setBorderPainted(false);
+
     }
 
     /**
@@ -63,8 +42,8 @@ public class LoginScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        browserLoadQuestion = new javax.swing.JButton();
+        verifiedAppQuestion = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         Login = new javax.swing.JButton();
         username = new javax.swing.JTextField();
@@ -72,44 +51,49 @@ public class LoginScreen extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(450, 570));
-        setPreferredSize(new java.awt.Dimension(450, 595));
+        setMinimumSize(new java.awt.Dimension(450, 600));
+        setPreferredSize(new java.awt.Dimension(450, 570));
         setResizable(false);
+        setSize(new java.awt.Dimension(450, 570));
         getContentPane().setLayout(null);
 
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Browser won't load?");
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        browserLoadQuestion.setForeground(new java.awt.Color(255, 255, 255));
+        browserLoadQuestion.setText("Browser won't load?");
+        browserLoadQuestion.setBorder(null);
+        browserLoadQuestion.setBorderPainted(false);
+        browserLoadQuestion.setContentAreaFilled(false);
+        browserLoadQuestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                browserLoadQuestionActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(48, 548, 130, 16);
+        getContentPane().add(browserLoadQuestion);
+        browserLoadQuestion.setBounds(48, 548, 130, 15);
 
-        jButton1.setBorder(null);
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        verifiedAppQuestion.setBorder(null);
+        verifiedAppQuestion.setBorderPainted(false);
+        verifiedAppQuestion.setContentAreaFilled(false);
+        verifiedAppQuestion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                verifiedAppQuestionActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(50, 520, 170, 30);
+        getContentPane().add(verifiedAppQuestion);
+        verifiedAppQuestion.setBounds(50, 520, 170, 30);
 
         exitButton.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
+        exitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/SubmitButton.png"))); // NOI18N
         exitButton.setText("Exit");
+        exitButton.setToolTipText("");
+        exitButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
             }
         });
         getContentPane().add(exitButton);
-        exitButton.setBounds(371, 520, 60, 32);
+        exitButton.setBounds(371, 520, 60, 30);
 
         Login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/LoginButtonUnpressed.png"))); // NOI18N
         Login.setToolTipText("");
@@ -132,11 +116,6 @@ public class LoginScreen extends javax.swing.JFrame {
         username.setBorder(null);
         username.setOpaque(false);
         username.setSelectedTextColor(new java.awt.Color(0, 0, 0));
-        username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameActionPerformed(evt);
-            }
-        });
         getContentPane().add(username);
         username.setBounds(60, 265, 330, 30);
 
@@ -146,11 +125,6 @@ public class LoginScreen extends javax.swing.JFrame {
         password.setAlignmentY(0.0F);
         password.setBorder(null);
         password.setOpaque(false);
-        password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordActionPerformed(evt);
-            }
-        });
         getContentPane().add(password);
         password.setBounds(60, 370, 330, 30);
 
@@ -163,87 +137,42 @@ public class LoginScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
-        // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_exitButtonActionPerformed
 
-    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordActionPerformed
-
-    class Task implements Callable<String> {
-
-        @Override
-        public String call() throws Exception {
-            while (!Thread.interrupted()) {
-                try {
-                    setVisible(false);
-                    email = new Email(currentUser.getEmail());
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            new MenuScreen().setVisible(true);
-                        }
-                    });
-                    dispose();
-
-                } catch (GeneralSecurityException | IOException ex) {
-                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-            }
-            //Thread.sleep(10000); // Just to demo a long running task of 4 seconds.
-            return "Ready!";
-        }
-    }
-    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        // TODO add your handling code here:
-        /* ActionListener taskPerformer = new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                java.awt.EventQueue.invokeLater(() -> {
-                    setVisible(true);
-                    new ErrorPanel("Session timed out, please try again").setVisible(true);
-                });
 
-            }
-        };
-        Timer timer = new Timer(3 * 1000, taskPerformer);
-        timer.setRepeats(false);
-        timer.start();
-         */
-        //try {
+        //Looks for the user in the database; null if no match
         currentUser = GETOUT.users.stream()
                 .filter(user -> username.getText().equals(user.getEmail()))
                 .findAny()
                 .orElse(null);
-        //users.stream().anyMatch(user -> username.equals(user.getEmail())&& password.equals(user.getPassword()))
+
         if (currentUser == null) {
-            // timer.stop();
             java.awt.EventQueue.invokeLater(() -> {
                 new ErrorPanel("Not a valid user!").setVisible(true);
             });
         } else {
+            //If the passwords match as well, then a 60 second timer starts 
+            //to allow the user to log into gmail. 
+
             if (password.getText().equals(currentUser.getPassword())) {
-                // try {
-                //  Runnable logInThread = new Runnable() {
-                //   public void run() {
+
                 Timer timer = new Timer("Timer");
-                Thread loginThread = new Thread() {
+                Thread loginThread = new Thread() {//Multi-threaded to allow for timer to work
                     @Override
                     public void run() {
                         try {
                             setVisible(false);
-                            email = new Email(currentUser.getEmail());
-                            timer.cancel();
-                            java.awt.EventQueue.invokeLater(() -> {
-                                new MenuScreen().setVisible(true);
-                            });
-
+                            email = new Email(currentUser.getEmail());//Attempts to log into gmail
+                            timer.cancel();//If login is successful, then the code will run to the next line
+                            //and the timer will stop
                             dispose();
+
+                            java.awt.EventQueue.invokeLater(() -> {
+                                new MenuScreen().setVisible(true);//Proceed to program
+                            });
 
                         } catch (GeneralSecurityException | IOException ex) {
                             Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
@@ -251,123 +180,48 @@ public class LoginScreen extends javax.swing.JFrame {
                     }
                 };
 
+                //If the timer runs out, the connection with Google servers will stop and 
+                //the user will be prompted to try again
                 TimerTask task = new TimerTask() {
                     @Override
                     public void run() {
-
                         setVisible(true);
                         new ErrorPanel("Session timed out, please try again.").setVisible(true);
-
                         loginThread.stop();
+
                     }
                 };
 
                 loginThread.start();
+                timer.schedule(task, 60000);//60 seconds               
 
-                timer.schedule(task, 60000);
-
-                System.out.println(1);
-
-                System.out.println(2);
-                // timer.cancel();
-                /*catch (GeneralSecurityException ex) {
-                                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                                }*/
-
- /*ExecutorService executor = Executors.newSingleThreadExecutor();
-                                Future<String> future = executor.submit(new Task());
-
-                                try {
-                                    System.out.println(future.get(3, TimeUnit.SECONDS));
-
-                                } catch (TimeoutException e) {
-                                    future.cancel(true);
-
-                                    setVisible(true);
-                                    java.awt.EventQueue.invokeLater(() -> {
-                                        setVisible(true);
-                                        new ErrorPanel("Session timed out, please try again").setVisible(true);
-                                    });
-
-                                    System.out.println("Terminated!");
-
-                                } catch (InterruptedException | ExecutionException ex) {
-                                    Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-
-                                executor.shutdownNow();*/
-            } // };
-            //  Thread thread = new Thread(logInThread);
-            //  thread.start();
-            /* try {
-                                thread.join();
-                            } catch (InterruptedException ex) {
-                                Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-                            }*/ // } catch (GeneralSecurityException ex) {
-            //      Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-            //  }
-            else {
-                //timer.stop();
-                System.out.println("Not the correct password!");
+            } else {
+                new ErrorPanel("Incorrect Password!").setVisible(true);
             }
         }
-        //  } catch (IOException ex) {
-        //     Logger.getLogger(LoginScreen.class.getName()).log(Level.SEVERE, null, ex);
-        // }
     }//GEN-LAST:event_LoginActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    //Below are two info panels that respond to the questions on the login screen
+    private void verifiedAppQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verifiedAppQuestionActionPerformed
         new ErrorPanel("Our program uses Gmail Api. In order to get our app verified, "
                 + "we would have to pay money. "
                 + "To get around this, click 'Advanced', and then 'Proceed to QuickStart'.", true).setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_verifiedAppQuestionActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void browserLoadQuestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browserLoadQuestionActionPerformed
         new ErrorPanel("Gmail's api only works on Chrome. "
                 + "Copy the link from your browser and paste it on a Chrome Browser.", true).setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_browserLoadQuestionActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new LoginScreen().setVisible(true);
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Login;
+    private javax.swing.JButton browserLoadQuestion;
     private javax.swing.JButton exitButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
+    private javax.swing.JButton verifiedAppQuestion;
     // End of variables declaration//GEN-END:variables
 }

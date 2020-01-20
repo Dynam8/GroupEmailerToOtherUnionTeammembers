@@ -1,7 +1,8 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Main navigation page for the program. 
+ * 
  */
 package GUI;
 
@@ -18,19 +19,26 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Emperor Master Chen
+ * @author Fred Chen, Sam Rodgers
  */
 public class MenuScreen extends javax.swing.JFrame {
 
     /**
-     * Creates new form MenuScreen2
+     * Creates new form MenuScreen
      */
     public MenuScreen() {
+
         initComponents();
+
+        //***Design UI
         jLabel1.setVisible(false);
         jLabel2.setVisible(false);
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
+        //*****
+
+        //If the user's permission is less than 2, then the admin and attendance 
+        //buttons are disabled
         if (LoginScreen.currentUser.getPermission() < 2) {
             jLabel1.setVisible(true);
             jLabel2.setVisible(true);
@@ -41,7 +49,11 @@ public class MenuScreen extends javax.swing.JFrame {
         }
 
     }
-    boolean hasClickedEmail, hasClickedAttendance, hasClickedAdmin, hasClickedUser = false;
+
+    //Booleans for determing if the dropdown menu has been clicked
+    //There is a built-in boolean for this, however
+    //Due to the nature of the UI, we were forced to have separate, independant variables
+    private boolean isEmailOpen, isAttendanceOpen, isAdminOpen, isUserOpen = true;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,7 +87,7 @@ public class MenuScreen extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("You are not authorized to use this function!");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(70, 320, 250, 16);
+        jLabel4.setBounds(70, 320, 250, 14);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Disabled.png"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -85,7 +97,7 @@ public class MenuScreen extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("You are not authorized to use this function!");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(70, 230, 250, 16);
+        jLabel2.setBounds(70, 230, 250, 14);
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Disabled.png"))); // NOI18N
@@ -111,11 +123,6 @@ public class MenuScreen extends javax.swing.JFrame {
         EmailComboBox.setPreferredSize(new java.awt.Dimension(293, 0));
         EmailComboBox.setRequestFocusEnabled(false);
         EmailComboBox.setVerifyInputWhenFocusTarget(false);
-        EmailComboBox.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                EmailComboBoxMouseEntered(evt);
-            }
-        });
         EmailComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmailComboBoxActionPerformed(evt);
@@ -126,6 +133,11 @@ public class MenuScreen extends javax.swing.JFrame {
 
         ButtonforEmailCombo.setBorderPainted(false);
         ButtonforEmailCombo.setContentAreaFilled(false);
+        ButtonforEmailCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonforEmailComboMouseEntered(evt);
+            }
+        });
         ButtonforEmailCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforEmailComboActionPerformed(evt);
@@ -146,6 +158,11 @@ public class MenuScreen extends javax.swing.JFrame {
         ButtonforAttendanceCombo.setText("jButton1");
         ButtonforAttendanceCombo.setBorderPainted(false);
         ButtonforAttendanceCombo.setContentAreaFilled(false);
+        ButtonforAttendanceCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonforAttendanceComboMouseEntered(evt);
+            }
+        });
         ButtonforAttendanceCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforAttendanceComboActionPerformed(evt);
@@ -166,6 +183,11 @@ public class MenuScreen extends javax.swing.JFrame {
         ButtonforAdminCombo.setText("jButton1");
         ButtonforAdminCombo.setBorderPainted(false);
         ButtonforAdminCombo.setContentAreaFilled(false);
+        ButtonforAdminCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonforAdminComboMouseEntered(evt);
+            }
+        });
         ButtonforAdminCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforAdminComboActionPerformed(evt);
@@ -187,6 +209,11 @@ public class MenuScreen extends javax.swing.JFrame {
         ButtonforUserCombo.setText("jButton1");
         ButtonforUserCombo.setBorderPainted(false);
         ButtonforUserCombo.setContentAreaFilled(false);
+        ButtonforUserCombo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ButtonforUserComboMouseEntered(evt);
+            }
+        });
         ButtonforUserCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ButtonforUserComboActionPerformed(evt);
@@ -197,13 +224,19 @@ public class MenuScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-private ArrayList<User> filterUsers(int permissionLevel) {
+
+    //Filters the users based on their permission level; 
+    //used when sending emails based on permission/catagory
+    private ArrayList<User> filterUsers(int permissionLevel) {
+
         return (ArrayList<User>) GETOUT.users.stream()
                 .filter(user -> user.getPermission() == permissionLevel)
                 .collect(Collectors.toList());
 
     }
 
+    //Based on which dropDown menu item in the Email button is pressed, 
+    //the program filters appropriately for which users to send emails to
     private void EmailComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailComboBoxActionPerformed
 
         switch (EmailComboBox.getSelectedItem().toString()) {
@@ -252,6 +285,8 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         }
     }//GEN-LAST:event_EmailComboBoxActionPerformed
 
+    
+    //Same situation as the emailComboBox function
     private void AttendanceComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AttendanceComboBoxActionPerformed
         switch (AttendanceComboBox.getSelectedItem().toString()) {
             case ("Create new attendance"):
@@ -273,6 +308,7 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         }
     }//GEN-LAST:event_AttendanceComboBoxActionPerformed
 
+    //Same situation as the emailComboBox function
     private void AdminComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminComboBoxActionPerformed
         switch (AdminComboBox.getSelectedItem().toString()) {
             case ("Create new user"):
@@ -295,112 +331,115 @@ private ArrayList<User> filterUsers(int permissionLevel) {
         }
     }//GEN-LAST:event_AdminComboBoxActionPerformed
 
+    //Same situation as the emailComboBox function
     private void UserComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserComboBoxActionPerformed
+        //There are 2 options: Remember me and don't remember me.
+        //Don't remember me deletes the email tokens, meaning the user has to
+        //go through the verification process when logging in again
         switch (UserComboBox.getSelectedItem().toString()) {
             case ("Log out and remember me"):
-
-                this.dispose();
+                dispose();
+                new LoginScreen().setVisible(true);
                 break;
+
             case ("Log out and don't remember me"): {
-                try {
-                    Files.deleteIfExists(Paths.get("UserCred/tokens/" + LoginScreen.currentUser.getEmail().substring(0, LoginScreen.currentUser.getEmail().indexOf('@'))));
-                } catch (IOException ex) {
-                    Logger.getLogger(MenuScreen.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                this.dispose();
-                break;
 
+                //If the user is using the admin account, there is a safeguard to prevent it
+                //from being deleted
+                if (LoginScreen.currentUser.getEmail().equals(GETOUT.ADMIN_EMAIL)) {
+                    new ErrorPanel("You can't delete the admin account!").setVisible(true);
+                    break;
+                } else {
+
+                    //finds and deletes the token
+                    try {
+                        Files.deleteIfExists(Paths.get("UserCred/tokens/" + LoginScreen.currentUser.getEmail().substring(0, LoginScreen.currentUser.getEmail().indexOf('@'))));
+
+                    } catch (IOException ex) {
+                        new ErrorPanel("The token file has already been deleted. Restart the program and log in again.").setVisible(true);
+                        Logger.getLogger(MenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    new LoginScreen().setVisible(true);
+                    dispose();
+                    break;
+
+                }
             }
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginScreen().setVisible(true);
-            }
-        });
-        this.dispose();
+
 
     }//GEN-LAST:event_UserComboBoxActionPerformed
 
-    private void EmailComboBoxMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailComboBoxMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmailComboBoxMouseEntered
-
+    //The following Buttonfor_CHOICE_ComboActionPerformed functions do:
+    //When the user clicks the button, the combo box appears.
+    //When the user clicks elsewhere, the combo box disappears.
     private void ButtonforEmailComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforEmailComboActionPerformed
-        if (hasClickedEmail) {
-            EmailComboBox.hidePopup();
-            hasClickedEmail = false;
-        } else {
+        if (!isEmailOpen) {
             EmailComboBox.showPopup();
-            hasClickedEmail = true;
+            isEmailOpen = true;
+
+        } else {
+            isEmailOpen = false;
         }
+
     }//GEN-LAST:event_ButtonforEmailComboActionPerformed
 
     private void ButtonforAttendanceComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforAttendanceComboActionPerformed
-        if (hasClickedAttendance) {
-            AttendanceComboBox.hidePopup();
-            hasClickedAttendance = false;
-        } else {
+
+        if (!isAttendanceOpen) {
             AttendanceComboBox.showPopup();
-            hasClickedAttendance = true;
+            isAttendanceOpen = true;
+
+        } else {
+            isAttendanceOpen = false;
         }
     }//GEN-LAST:event_ButtonforAttendanceComboActionPerformed
 
     private void ButtonforAdminComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforAdminComboActionPerformed
-        if (hasClickedAdmin) {
-            AdminComboBox.hidePopup();
-            hasClickedAdmin = false;
-        } else {
+
+        if (!isAdminOpen) {
             AdminComboBox.showPopup();
-            hasClickedAdmin = true;
+            isAdminOpen = true;
+
+        } else {
+            isAdminOpen = false;
         }
     }//GEN-LAST:event_ButtonforAdminComboActionPerformed
 
     private void ButtonforUserComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonforUserComboActionPerformed
 
-        if (hasClickedUser) {
-            UserComboBox.hidePopup();
-            hasClickedUser = false;
-        } else {
+        if (!isUserOpen) {
             UserComboBox.showPopup();
-            hasClickedUser = true;
+            isUserOpen = true;
+
+        } else {
+            isUserOpen = false;
         }
     }//GEN-LAST:event_ButtonforUserComboActionPerformed
+
+    //The following entered methods help the above methods in making sure that
+    //The combo boxes only open when the button is pressed, and close when the mouse
+    //is elsewhere.
+    
+    private void ButtonforEmailComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforEmailComboMouseEntered
+        isEmailOpen = EmailComboBox.isPopupVisible();
+    }//GEN-LAST:event_ButtonforEmailComboMouseEntered
+
+    private void ButtonforAttendanceComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforAttendanceComboMouseEntered
+        isAttendanceOpen = AttendanceComboBox.isPopupVisible();
+    }//GEN-LAST:event_ButtonforAttendanceComboMouseEntered
+
+    private void ButtonforAdminComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforAdminComboMouseEntered
+        isAdminOpen = AdminComboBox.isPopupVisible();
+    }//GEN-LAST:event_ButtonforAdminComboMouseEntered
+
+    private void ButtonforUserComboMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ButtonforUserComboMouseEntered
+        isUserOpen = UserComboBox.isPopupVisible();
+    }//GEN-LAST:event_ButtonforUserComboMouseEntered
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuScreen().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> AdminComboBox;

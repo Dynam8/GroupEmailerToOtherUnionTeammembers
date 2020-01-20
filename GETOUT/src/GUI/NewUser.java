@@ -1,7 +1,8 @@
+//2020 Jan 21 Fred Chen, Ashwin Boni Bangari, Sam Rogers
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Creates a new user in the system
+ * Only authorized users are able to access this window
  */
 package GUI;
 
@@ -10,13 +11,10 @@ import Backend.User;
 import getout.GETOUT;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
- * @author Emperor Master Chen
+ * @author Fred Chen, Sam Rodgers
  */
 public class NewUser extends javax.swing.JFrame {
 
@@ -25,20 +23,6 @@ public class NewUser extends javax.swing.JFrame {
      */
     public NewUser() {
         initComponents();
-    }
-
-    private boolean validateEmail(String email) {
-        boolean isValid = false;
-        try {
-            // Create InternetAddress object and validated the supplied
-            // address which is this case is an email address.
-            InternetAddress internetAddress = new InternetAddress(email);
-            internetAddress.validate();
-            isValid = true;
-        } catch (AddressException e) {
-            e.printStackTrace();
-        }
-        return isValid;
     }
 
     /**
@@ -63,8 +47,8 @@ public class NewUser extends javax.swing.JFrame {
         password = new javax.swing.JPasswordField();
         confirmPassword = new javax.swing.JPasswordField();
         submit = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
+        whatIsThis = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,7 +73,7 @@ public class NewUser extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Name");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(5, 150, 170, 21);
+        jLabel2.setBounds(5, 150, 170, 23);
 
         jLabel3.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -107,7 +91,7 @@ public class NewUser extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Password");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(5, 296, 190, 21);
+        jLabel5.setBounds(5, 296, 190, 23);
 
         jLabel6.setFont(new java.awt.Font("Open Sans", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -126,13 +110,8 @@ public class NewUser extends javax.swing.JFrame {
         email.setForeground(new java.awt.Color(255, 255, 255));
         email.setBorder(null);
         email.setOpaque(false);
-        email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailActionPerformed(evt);
-            }
-        });
         getContentPane().add(email);
-        email.setBounds(150, 205, 170, 15);
+        email.setBounds(150, 205, 170, 16);
 
         permissionLevel.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
         permissionLevel.setForeground(new java.awt.Color(255, 255, 255));
@@ -146,19 +125,14 @@ public class NewUser extends javax.swing.JFrame {
         password.setBorder(null);
         password.setOpaque(false);
         getContentPane().add(password);
-        password.setBounds(150, 303, 170, 15);
+        password.setBounds(150, 303, 170, 16);
 
         confirmPassword.setFont(new java.awt.Font("Open Sans", 0, 11)); // NOI18N
         confirmPassword.setForeground(new java.awt.Color(255, 255, 255));
         confirmPassword.setBorder(null);
         confirmPassword.setOpaque(false);
-        confirmPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmPasswordActionPerformed(evt);
-            }
-        });
         getContentPane().add(confirmPassword);
-        confirmPassword.setBounds(150, 352, 170, 15);
+        confirmPassword.setBounds(150, 352, 170, 16);
 
         submit.setFont(new java.awt.Font("Open Sans", 0, 18)); // NOI18N
         submit.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,54 +148,47 @@ public class NewUser extends javax.swing.JFrame {
         getContentPane().add(submit);
         submit.setBounds(100, 420, 130, 45);
 
-        jButton1.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancel");
-        jButton1.setBorderPainted(false);
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        cancel.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        cancel.setForeground(new java.awt.Color(255, 255, 255));
+        cancel.setText("Cancel");
+        cancel.setBorderPainted(false);
+        cancel.setContentAreaFilled(false);
+        cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                cancelActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(125, 480, 80, 20);
+        getContentPane().add(cancel);
+        cancel.setBounds(125, 480, 80, 20);
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        whatIsThis.setBackground(new java.awt.Color(255, 255, 255));
+        whatIsThis.setBorder(null);
+        whatIsThis.setBorderPainted(false);
+        whatIsThis.setContentAreaFilled(false);
+        whatIsThis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                whatIsThisActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(7, 272, 70, 10);
+        getContentPane().add(whatIsThis);
+        whatIsThis.setBounds(7, 272, 70, 10);
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/NewUserBackground1.jpg"))); // NOI18N
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(0, 0, 0, 0);
+        jLabel7.setBounds(0, 0, 330, 543);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
-
-    private void confirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_confirmPasswordActionPerformed
-
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        boolean isValidPermission;
+
+        //Makes sure that the emails are not duplicates
         if (GETOUT.users.stream()
                 .anyMatch(i -> email.getText().equals(i.getEmail()))) {
-            // java.awt.EventQueue.invokeLater(() -> {
             new ErrorPanel("This email already exists! Please change the email!").setVisible(true);
-            // });
-        } else if (name.getText().equals("")
+
+        } //Makes sure that the boxes are not left blank
+        else if (name.getText().equals("")
                 || email.getText().equals("")
                 || permissionLevel.getText().equals("")
                 || password.getText().equals("")
@@ -229,23 +196,28 @@ public class NewUser extends javax.swing.JFrame {
             java.awt.EventQueue.invokeLater(() -> {
                 new ErrorPanel("One or more fields are empty!").setVisible(true);
             });
-        } else if (!password.getText().equals(confirmPassword.getText())) {
+        } //Passwords matching
+        else if (!password.getText().equals(confirmPassword.getText())) {
             java.awt.EventQueue.invokeLater(() -> {
                 new ErrorPanel("Passwords do not match!").setVisible(true);
             });
-        } else if (!email.getText().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")) {
+        } //Email address must follow @email.domain format
+        else if (!email.getText().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")) {
             java.awt.EventQueue.invokeLater(() -> {
                 new ErrorPanel("Email is not valid!").setVisible(true);
             });
-        } else if (!permissionLevel.getText().matches("\\d+")) {
+        } //Permission level must be a number
+        else if (!permissionLevel.getText().matches("\\d+")) {
             java.awt.EventQueue.invokeLater(() -> {
                 new ErrorPanel("Permission level must be a number!").setVisible(true);
             });
-        } else {//(permissionLevel.getText().matches("\\d+")){
+        } else {
+
+            //Permission level must be between 0 and 3
             if (Integer.parseInt(permissionLevel.getText()) >= 0 && Integer.parseInt(permissionLevel.getText()) <= 3) {
-                isValidPermission = true;
+
                 GETOUT.users.add(new User(name.getText(), email.getText(), password.getText(), Integer.parseInt(permissionLevel.getText())));
-                ParseJson.writeToFile(GETOUT.users, "UserCred/users.json");
+                ParseJson.writeToFile(GETOUT.users, "UserCred/users.json");// If all above criteria match, the user is added
                 new MenuScreen().setVisible(true);
                 System.out.println("Written Successfully");
                 dispose();
@@ -258,62 +230,27 @@ public class NewUser extends javax.swing.JFrame {
 
     }//GEN-LAST:event_submitActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
 
         new MenuScreen().setVisible(true);
         dispose();
-// TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_cancelActionPerformed
+
+    //Explanation for permissions
+    private void whatIsThisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_whatIsThisActionPerformed
         new ErrorPanel("Permissions determine what a user can access. 0 is for volunteer, "
                 + "1 is for member, "
                 + "2 is for executive, "
                 + "and 3 is for teacher. "
                 + "Only 2 and 3 can add/delete users and access attendance.", true).setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_whatIsThisActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewUser().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancel;
     private javax.swing.JPasswordField confirmPassword;
     private javax.swing.JTextField email;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -326,5 +263,6 @@ public class NewUser extends javax.swing.JFrame {
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField permissionLevel;
     private javax.swing.JButton submit;
+    private javax.swing.JButton whatIsThis;
     // End of variables declaration//GEN-END:variables
 }
