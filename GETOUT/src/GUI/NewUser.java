@@ -218,9 +218,11 @@ public class NewUser extends javax.swing.JFrame {
 
                 GETOUT.users.add(new User(name.getText(), email.getText(), password.getText(), Integer.parseInt(permissionLevel.getText())));
                 ParseJson.writeToFile(GETOUT.users, "UserCred/users.json");// If all above criteria match, the user is added
-                new MenuScreen().setVisible(true);
                 new ErrorPanel("User Created Successfully", true).setVisible(true);
                 dispose();
+                new MenuScreen().setVisible(true);
+                
+                
             } else {
                 java.awt.EventQueue.invokeLater(() -> {
                     new ErrorPanel("Permission level must be between 0 and 3!").setVisible(true);
