@@ -25,7 +25,6 @@ public class EmailScreen extends javax.swing.JFrame {
      *
      * @param users
      */
-    
     //Refer to DeleteUsers to see an explanation on how the jTable is filled with information
     //This table is exactly the same as it, with the exception of no emails being ommitted.
     Object[][] data;
@@ -39,7 +38,7 @@ public class EmailScreen extends javax.swing.JFrame {
             data[i][2] = false;
         }
         initComponents();
-        
+
         //*********UI and design***************
         table.setOpaque(false);
         ((DefaultTableCellRenderer) table.getDefaultRenderer(Object.class)).setOpaque(false);
@@ -69,7 +68,7 @@ public class EmailScreen extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         body = new javax.swing.JTextArea();
         checkAll = new javax.swing.JCheckBox();
-        jButton2 = new javax.swing.JButton();
+        discardEmail = new javax.swing.JButton();
         send = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -121,7 +120,7 @@ public class EmailScreen extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Subject:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(330, 60, 50, 16);
+        jLabel1.setBounds(330, 60, 50, 17);
 
         subject.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         subject.setForeground(new java.awt.Color(255, 255, 255));
@@ -129,13 +128,13 @@ public class EmailScreen extends javax.swing.JFrame {
         subject.setCaretColor(new java.awt.Color(255, 255, 255));
         subject.setOpaque(false);
         getContentPane().add(subject);
-        subject.setBounds(390, 60, 149, 18);
+        subject.setBounds(390, 60, 149, 19);
 
         jLabel2.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Body:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(338, 100, 40, 16);
+        jLabel2.setBounds(338, 100, 40, 17);
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setOpaque(false);
@@ -166,22 +165,22 @@ public class EmailScreen extends javax.swing.JFrame {
             }
         });
         getContentPane().add(checkAll);
-        checkAll.setBounds(209, 320, 100, 24);
+        checkAll.setBounds(209, 320, 100, 23);
 
-        jButton2.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Discard Email");
-        jButton2.setBorder(null);
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        discardEmail.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
+        discardEmail.setForeground(new java.awt.Color(255, 255, 255));
+        discardEmail.setText("Discard Email");
+        discardEmail.setBorder(null);
+        discardEmail.setBorderPainted(false);
+        discardEmail.setContentAreaFilled(false);
+        discardEmail.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        discardEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                discardEmailActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(540, 360, 90, 16);
+        getContentPane().add(discardEmail);
+        discardEmail.setBounds(540, 360, 90, 17);
 
         send.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         send.setForeground(new java.awt.Color(255, 255, 255));
@@ -201,7 +200,7 @@ public class EmailScreen extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Compose Message");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(10, 10, 230, 32);
+        jLabel4.setBounds(10, 10, 230, 33);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/SubmitButton.png"))); // NOI18N
         jLabel6.setText("jLabel6");
@@ -216,35 +215,39 @@ public class EmailScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     //Email is not sent
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void discardEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_discardEmailActionPerformed
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuScreen().setVisible(true);
             }
         });
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_discardEmailActionPerformed
 
-    
     //Takes all the checked users and sends an email to them
     //With the specified body and subject
     private void sendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendActionPerformed
         ArrayList<String> tempTo = new ArrayList<>();
-        for(int i = 0; i<table.getModel().getRowCount(); i++){
-            if ((boolean)table.getValueAt(i, 2)){
-                tempTo.add((String)table.getValueAt(i, 1));
+        for (int i = 0; i < table.getModel().getRowCount(); i++) {
+            if ((boolean) table.getValueAt(i, 2)) {
+                if(((String) table.getValueAt(i, 1)).equals("admin@admin.com")){
+                    tempTo.add("emailerTreeMailer@gmail.com");
+                }else{
+                    tempTo.add((String) table.getValueAt(i, 1));
+                }
+                
             }
         }
-        if(!tempTo.isEmpty()){
-        String [] to = tempTo.toArray(new String[tempTo.size()]);
-                
-        try {//Send email section
-            LoginScreen.email.sendEmail(to, LoginScreen.currentUser.getEmail(), subject.getText(), body.getText());
-            new ErrorPanel("Sent Successfully", true).setVisible(true);
-        } catch (IOException | MessagingException ex) {
-            Logger.getLogger(EmailScreen.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }else{//One cannot send an email to no one
+        if (!tempTo.isEmpty()) {
+            String[] to = tempTo.toArray(new String[tempTo.size()]);
+
+            try {//Send email section
+                LoginScreen.email.sendEmail(to, LoginScreen.currentUser.getEmail(), subject.getText(), body.getText());
+                new ErrorPanel("Sent Successfully", true).setVisible(true);
+            } catch (IOException | MessagingException ex) {
+                Logger.getLogger(EmailScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {//One cannot send an email to no one
             new ErrorPanel("You must have at least one recipient selected!").setVisible(true);
         }
 
@@ -262,7 +265,7 @@ public class EmailScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea body;
     private javax.swing.JCheckBox checkAll;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton discardEmail;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
