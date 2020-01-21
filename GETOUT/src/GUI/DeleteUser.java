@@ -9,6 +9,11 @@ package GUI;
 import Backend.ParseJson;
 import Backend.User;
 import getout.GETOUT;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -177,6 +182,11 @@ public class DeleteUser extends javax.swing.JFrame {
             if ((boolean) table.getValueAt(i, 2)) {
                 final String TEMP_EMAIL = (String) table.getValueAt(i, 1);
                 GETOUT.users.removeIf((User u) -> u.getEmail().equals(TEMP_EMAIL));
+                try {
+                    Files.deleteIfExists(Paths.get("UserCred/tokens/" + ((String) table.getValueAt(i, 1)).substring(0, ((String) table.getValueAt(i, 1)).indexOf('@'))));
+                } catch (IOException ex) {
+                    Logger.getLogger(MenuScreen.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 counter++;//counter counts if a user has been deleted
             }
         }
